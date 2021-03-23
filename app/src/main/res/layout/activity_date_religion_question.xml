@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/android_background_2">
+
+    <TextView
+        android:id="@+id/choose_religion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:text="@string/your_date_religion"
+        android:textColor="@color/titleColor"
+        android:textSize="27sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/orthodox_date_religion"
+        android:layout_width="250dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_rounded_corners_effect"
+        android:elevation="10dp"
+        android:text="@string/orthodox"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choose_religion" />
+
+    <Button
+        android:id="@+id/muslim_date_religion"
+        android:layout_width="250dp"
+        android:layout_height="65dp"
+        android:background="@drawable/button_rounded_corners_effect"
+        android:elevation="10dp"
+        android:text="@string/muslim"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orthodox_date_religion"
+        app:layout_constraintVertical_bias="0.025" />
+    <Button
+        android:id="@+id/protestant_date_religion"
+        android:layout_width="250dp"
+        android:layout_height="65dp"
+        android:background="@drawable/button_rounded_corners_effect"
+        android:elevation="10dp"
+        android:text="@string/protestant"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/muslim_date_religion"
+        app:layout_constraintVertical_bias="0.025" />
+    <Button
+        android:id="@+id/no_problem_religion"
+        android:layout_width="250dp"
+        android:layout_height="65dp"
+        android:background="@drawable/button_rounded_corners_effect"
+        android:elevation="10dp"
+        android:text="@string/no_problem"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/protestant_date_religion"
+        app:layout_constraintVertical_bias="0.025" />
+</androidx.constraintlayout.widget.ConstraintLayout>

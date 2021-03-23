@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "351716108339",
+    "firebase_url": "https://ye-fikir-ketero.firebaseio.com",
+    "project_id": "ye-fikir-ketero",
+    "storage_bucket": "ye-fikir-ketero.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351716108339:android:7a1e2b5cb77ad2ea9c1b46",
+        "android_client_info": {
+          "package_name": "com.aden.yefikirketero"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351716108339-tbqcjrhou92bqle9b1sg8p3ibnk2cth1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeiVgwrL_QbfdPU3Sm-FztwzW2wdjF7Zk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351716108339-tbqcjrhou92bqle9b1sg8p3ibnk2cth1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

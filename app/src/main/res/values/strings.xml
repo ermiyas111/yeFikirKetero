@@ -1,0 +1,126 @@
+<resources>
+    <string name="app_name">የፍቅር ቀጠሮ❤</string>
+
+    <string name="your_gender">ፆታዎ</string>
+    <string name="your_name">ስም</string>
+    <string name="what_to_call_you">ማን እንበልዎ</string>
+    <string name="continue_button">ቀጥል</string>
+    <string name="choose_button">ምረጥ</string>
+    <string name="your_age">ዕድሜዎ ስንት ነው</string>
+    <string name="how_old_are_you">ዕድሜ</string>
+    <string name="your_religion">ሐይማኖት</string>
+    <string name="your_city">መኖርያዎ የት ነው</string>
+    <string name="where_do_you_live">የሚኖሩበት ከተማ</string>
+    <string name="yours_bio">ስለራስዎ እና ስለሚፈልጉት ጓደኛ ትንሽ ነገር ይበሉ</string>
+    <string name="what_to_input">ስም፣ እድሜ፣ ሃይማኖት ወዘተ...</string>
+    <string name="your_show_the_way">የራስዎን ማስታዎቂያ ለመለጠፍ አስፈላጊ መረጃዎችን ያስገቡ</string>
+    <string name="record_audio">ያስገቡትን መረጃ በድምጽ ይቅዱት(መረጃው ተኣማኒ እንዲሆን)</string>
+    <string name="wait_for_approval">እናመሰግናለን! ያስገቡት መረጃ በባለሙያዎች ተፈትሾ በጥቂት ሰዓታት ውስጥ ይለጠፋል!!!</string>
+    <string name="wait_for_card_approval">እናመሰግናለን! ያስገቡት ቁጥር ትክክለኛንት ታይቶ በጥቂት ሰዓታት በSMS ስልክ ቁጥሩን እንልክልዎታለን!!</string>
+    <string name="contact_us">ለበለጠ ማብራሪያ በቴሌግራም አድራሻችን @yefikerketerohelperbot ያነጋግሩን </string>
+    <string name="ask_for_phone">ስልክ ቁጥሩን ለማግኘት የአስር ብር ካርድ ፍቀው የሚስጥር ቁጥሩን ያስገቡ</string>
+    <string name="hidden_number">ሚስጥር ቁጥር</string>
+    <string name="explain_need_for_payment">ስልክ ቁጥር ለማግኘት አነስተኛ ክፍያ ይክፈሉ</string>
+    <string name="payment_from_where">እርስዎ የት ነው ያሉት?</string>
+    <string name="to_make_payment">ክፍያ ለመፈጸም</string>
+    <string name="turn_on_accessibility">Go to settings and turn on accesibility for "የፍቅር ቀጠሮ"</string>
+    <string name="go_to_settings">Go to settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="connection_error">Connection error</string>
+    <string name="retry">Retry</string>
+
+    <string name="back">ተመለስ</string>
+    <string name="finish_button">ጨርስ</string>
+    <string name="pass_button">ይለፈኝ</string>
+
+    <string name="your_date_age">የሚፈልጉት ጓደኛ ዕድሜ</string>
+    <string name="starting_age">ከስንት</string>
+    <string name="top_age">እስከ ስንት</string>
+    <string name="your_date_religion">የሚፈልጉት ጓደኛ ሐይማኖት</string>
+    <string name="your_date_city">የሚፈልጉት ጓደኛ መኖርያ ከተማ</string>
+    <string name="where_does_your_date_live">በእንግሊዘኛ ያስገቡ</string>
+    <string name="your_date_bio">ስለሚፈልጉት  ትንሽ ነገር ይበሉ</string>
+    <string name="date_what_to_input">እድሜ፣ ሃይማኖት፣ መኖርያ ወዘተ...</string>
+
+    <string name="firstTabText">ትዳር ፈላጊ</string>
+    <string name="secondTabText">ለርስዎ</string>
+
+    <string name="getPhoneNumber">ስልክ ቁጥር አግኝ</string>
+    <string name="letsGetToKnowEachOther">እንተዋወቅ</string>
+    <string name="agreeRequest">እስማማለሁ</string>
+    <string name="IDontWantTo">ይቅርብኝ</string>
+    <string name="openReceivedPhone">አሳየኝ</string>
+
+    <string name="matchTitle">ለመተዋወቅ የተስማሙ</string>
+    <string name="requestToDateTitle">ለመተዋወቅ የጠየቁ</string>
+    <string name="basedOnYourChoice">በምርጫዎ</string>
+    <string name="whichKindYouWant">ምን አይነት ጓደኛ እንደሚፈልጉ ይንገሩን</string>
+
+    <string name="prepare_your_post">የራስዎን ፖስት ያዘጋጁ</string>
+    <string name="about_you">ስለራስዎ</string>
+    <string name="about_your_date">ስለሚፈልጉት ሰው</string>
+
+    <string name="name">ስም</string>
+    <string name="age">ዕድሜ</string>
+    <string name="gender">ፆታ</string>
+    <string name="phone_number">ስልክ ቁጥር</string>
+    <string name="location">መኖሪያ ቦታ</string>
+    <string name="religion">ሃይማኖት</string>
+    <string name="height">ቁመት</string>
+    <string name="job">ስራ</string>
+    <string name="your_bio">ራስዎን በአጭሩ ይግለፁ</string>
+
+    <string name="male">ወንድ</string>
+    <string name="female">ሴት</string>
+
+    <string name="orthodox">ኦርቶዶክስ</string>
+    <string name="muslim">ሙስሊም</string>
+    <string name="protestant">ፕሮቴስታንት</string>
+
+    <string name="shortish">አጠር ያልኩ</string>
+    <string name="shorty">አጠር ያለ</string>
+    <string name="medium">መካከለኛ</string>
+    <string name="tall">ረዥም</string>
+
+    <string name="no_problem">ችግር የለዉም</string>
+
+    <string name="name_validation_error">ስም ያስገቡ</string>
+    <string name="age_validation_error">ዕድሜ ያስገቡ</string>
+    <string name="gender_validation_error">ፆታ ያስገቡ</string>
+    <string name="phone_validation_error">ስልክ ያስገቡ</string>
+
+    <string name="from">ከ</string>
+    <string name="to">እስከ</string>
+
+    <string name="from_where">መኖርያ</string>
+
+    <string-array name="location_choices">
+        <item>ሃገር ውስጥ</item>
+        <item>ውጭ ሃገር</item>
+    </string-array>
+
+    <string name="payment">ክፍያ</string>
+    <string name="step_one">Step 1 - </string>
+    <string name="step_two">Step 2 - </string>
+    <string name="step_three">Step 3 - </string>
+    <string name="enter_phone">ስልክዎን ያስገቡ</string>
+    <string name="send_fifty">ወደ 0904132755 50 ብር ይላኩ</string>
+    <string name="confirm_payment">ክፍያውን አረጋግጥ</string>
+
+    <string name="show_details">ዝርዝር አሳይ</string>
+
+    <string-array name="programming_languages">
+        <item>Java</item>
+        <item>javascript</item>
+        <item>kotlin</item>
+    </string-array>
+
+    <string-array name="description">
+        <item>Java is good</item>
+        <item>javascript is good</item>
+        <item>kotlin is good</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
