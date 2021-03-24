@@ -10,5 +10,6 @@
     <color name="buttonsColor">#880066</color>
     <color name="buttonsShadowColor">#F3EEE0</color>
     <color name="silentColor">#EEEEEE</color>
+    <color name="lightGrey">#999999</color>
     <color name="blackColor">#000000</color>
 </resources>

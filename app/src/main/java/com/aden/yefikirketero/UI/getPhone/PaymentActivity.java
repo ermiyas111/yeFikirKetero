@@ -3,9 +3,21 @@ package com.aden.yefikirketero.UI.getPhone;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.aden.yefikirketero.R;
+import com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment.ConfirmPayment;
+import com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment.InputPhone;
+import com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment.MakePayment;
+import com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment.PaymentTabsAdapter;
+import com.aden.yefikirketero.UI.profile.preparePostTabFragments.AboutDateForm;
+import com.aden.yefikirketero.UI.profile.preparePostTabFragments.AboutYouForm;
+import com.aden.yefikirketero.UI.profile.preparePostTabFragments.PreparePostTabsAdapter;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.tabs.TabLayout;
 
 
 import java.util.Arrays;
@@ -13,49 +25,74 @@ import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import static android.view.View.VISIBLE;
 
 public class PaymentActivity extends AppCompatActivity {
 
-    Context context;
-
-    int checkedItem = 1;
+    Context context = this;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    InputPhone inputPhone;
+    MakePayment makePayment;
+    ConfirmPayment confirmPayment;
+    String userPhoneNumber;
+    EditText phoneInput;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        context = this;
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
+        phoneInput = findViewById(R.id.phone_edit_text);
 
-        String[] listItems = getResources().getStringArray(R.array.location_choices);
+        inputPhone = new InputPhone();
+        makePayment = new MakePayment();
+        confirmPayment = new ConfirmPayment();
 
-        //let users choose whether they are from inside the country or not
-        MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(context)
-                .setTitle(getResources().getString(R.string.from_where));
-                materialAlertDialogBuilder.setNeutralButton(getResources().getString(R.string.back), new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        finish();
-                    }
-                });
-                materialAlertDialogBuilder.setPositiveButton(getResources().getString(R.string.choose_button), new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+        tabLayout.setupWithViewPager(viewPager);
 
-                    }
-                });
-                // Single-choice items (initialized with checked item)
-                materialAlertDialogBuilder.setSingleChoiceItems(listItems, checkedItem, null);
-                materialAlertDialogBuilder.setCancelable(false);
-                materialAlertDialogBuilder.show();
+        final PaymentTabsAdapter adapter = new PaymentTabsAdapter(this,getSupportFragmentManager(),
+                tabLayout.getTabCount());
+        adapter.addFragment(inputPhone,"አንድ");
+        adapter.addFragment(makePayment, "ሁለት");
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
 
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
 
-
+        LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
+        for(int i = 0; i < tabStrip.getChildCount(); i++) {
+            tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
+        }
     }
+
+
+    public String getUserPhoneNumber(){
+        return userPhoneNumber;
+    }
+
+    public void setUserPhoneNumber(String userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
+    }
+
 }
