@@ -231,22 +231,22 @@ public class RecordAudio extends AppCompatActivity {
                 String parsedPhoneString = phoneNumber.replaceAll("\\D+","");
                 long parsedPhone= Long.parseLong(parsedPhoneString);
 
-                PostUpload postUpload = new PostUpload(parsedPhone, myName, myAge, myBio, "no", 15, 950 );
-                Call<PostUpload> call = api.uploadPost(postUpload);
-                call.enqueue(new Callback<PostUpload>() {
-                    @Override
-                    public void onResponse(Call<PostUpload> call, Response<PostUpload> response) {
-                        Log.d("samuela", "success");
-                        //t1.setText("Success");
-                        //createPerson();
-                    }
-
-                    @Override
-                    public void onFailure(Call<PostUpload> call, Throwable t) {
-                        Log.d("samuela", "fail");
-                        //t1.setText("fail");
-                    }
-                });
+//                PostUpload postUpload = new PostUpload(parsedPhone, myName, myAge, myBio, "no", 15, 950 );
+//                Call<PostUpload> call = api.uploadPost(postUpload);
+//                call.enqueue(new Callback<PostUpload>() {
+//                    @Override
+//                    public void onResponse(Call<PostUpload> call, Response<PostUpload> response) {
+//                        Log.d("samuela", "success");
+//                        //t1.setText("Success");
+//                        //createPerson();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<PostUpload> call, Throwable t) {
+//                        Log.d("samuela", "fail");
+//                        //t1.setText("fail");
+//                    }
+//                });
 
                 //save that account is logged in
                 SharedPreferences sharedPreferences13 = context.getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);

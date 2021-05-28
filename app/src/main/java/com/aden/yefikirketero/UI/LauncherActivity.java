@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -69,7 +70,7 @@ public class LauncherActivity extends AppCompatActivity {
     //String[] s2 = new String[9];
     //use array list instead of String[]
     List<String> s1 = new ArrayList<>();
-    List<String> s2 = new ArrayList<>();
+    List<Long> s2 = new ArrayList<>();
     List<String> s3 = new ArrayList<>();
 
     /*TabLayout tabLayout;
@@ -112,6 +113,7 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_posted_profiles_tab);
+
 
         progressIndicator = findViewById(R.id.progressIndicator);
         recyclerView = findViewById(R.id.recycler_view_posted_profiles);
@@ -278,9 +280,9 @@ public class LauncherActivity extends AppCompatActivity {
                     s1.add(p.getBio());
                     s2.add(p.getPhoneNumber());
                     s3.add(p.getUserId());
-                    Log.d("phoneNumber", p.getPhoneNumber());
+//                    Log.d("phoneNumber", p.getPhoneNumber());
                     Log.d("name", p.getName());
-                    Log.d("age", p.getAge());
+//                    Log.d("age", p.getAge());
                     i++;
                 }
                 postsAdapter.notifyDataSetChanged();

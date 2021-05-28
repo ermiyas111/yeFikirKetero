@@ -5,18 +5,18 @@
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search"
-        android:title="search"
+        android:title="@string/search"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <item
         android:id="@+id/received_phone_numbers"
-        android:title="received phone numbers"
+        android:title="@string/received_phones"
         android:contentDescription="this is your received phone number" />
 
     <item
         android:id="@+id/about_us"
-        android:title="about us"
+        android:title="@string/about_us"
         android:contentDescription="this is about us"/>
 
 </menu>

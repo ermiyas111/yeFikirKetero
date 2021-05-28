@@ -32,6 +32,7 @@
     <string name="back">ተመለስ</string>
     <string name="finish_button">ጨርስ</string>
     <string name="pass_button">ይለፈኝ</string>
+    <string name="save_button">አስቀምጥ</string>
 
     <string name="your_date_age">የሚፈልጉት ጓደኛ ዕድሜ</string>
     <string name="starting_age">ከስንት</string>
@@ -116,6 +117,10 @@
     <string name="phone_contact">0954742475</string>
 
     <string name="show_details">ዝርዝር አሳይ</string>
+
+    <string name="search">ፈልግ</string>
+    <string name="received_phones">የተቀበሏቸው ስልኮች</string>
+    <string name="about_us">ስለ እኛ</string>
 
     <string-array name="programming_languages">
         <item>Java</item>

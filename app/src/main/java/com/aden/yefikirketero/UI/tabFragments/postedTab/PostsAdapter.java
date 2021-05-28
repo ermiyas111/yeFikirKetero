@@ -1,7 +1,9 @@
 package com.aden.yefikirketero.UI.tabFragments.postedTab;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import com.aden.yefikirketero.R;
 import com.aden.yefikirketero.UI.getPhone.DescribePaymentOptions;
 import com.aden.yefikirketero.UI.OnLoadMoreListener;
 import com.aden.yefikirketero.UI.getPhone.PaymentActivity;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -20,12 +23,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static android.content.Context.MODE_PRIVATE;
+import static android.view.View.VISIBLE;
+
 public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Context ct;
 
     List<String> data1;
-    List<String> data2;
+    List<Long> data2;
     List<String> data3;
 
     private boolean isLoading;
@@ -37,7 +43,7 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
 
-    public PostsAdapter(RecyclerView recyclerView, Context context, List<String> s1, List<String> s2, List<String> s3) {
+    public PostsAdapter(RecyclerView recyclerView, Context context, List<String> s1, List<Long> s2, List<String> s3) {
         ct = context;
         data1 = s1;
         data2 = s2;
@@ -120,11 +126,32 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             findPhone.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(ct, PaymentActivity.class);
-                    String phoneNumber = data2.get(getLayoutPosition());
+                    long phoneNumber = data2.get(getLayoutPosition());
                     String userId = data3.get(getLayoutPosition());
                     intent.putExtra("currentPhone", phoneNumber);
                     intent.putExtra("currentId", userId);
                     ct.startActivity(intent);
+
+                    //get phone without payment for men
+//                    MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(ct)
+//                            .setMessage(ct.getResources().getString(R.string.connection_error));
+//                    materialAlertDialogBuilder.setNeutralButton(ct.getResources().getString(R.string.back), new DialogInterface.OnClickListener()
+//                    {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which)
+//                        {
+//
+//                        }
+//                    });
+//                    materialAlertDialogBuilder.setPositiveButton(ct.getResources().getString(R.string.save_button), new DialogInterface.OnClickListener()
+//                    {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which)
+//                        {
+//
+//                        }
+//                    });
+//                    materialAlertDialogBuilder.show();
                 }
             });
         }

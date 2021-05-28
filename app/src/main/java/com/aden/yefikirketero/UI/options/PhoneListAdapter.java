@@ -25,7 +25,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     Context ct;
 
     List<String> data1;
-    List<String> data2;
+    List<Long> data2;
     List<String> data3;
 
     private boolean isLoading;
@@ -37,7 +37,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
 
-    public PhoneListAdapter(RecyclerView recyclerView, Context context, List<String> s1, List<String> s2, List<String> s3) {
+    public PhoneListAdapter(RecyclerView recyclerView, Context context, List<String> s1, List<Long> s2, List<String> s3) {
         ct = context;
         data1 = s1;
         data2 = s2;
@@ -120,7 +120,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             findPhone.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(ct, PaymentActivity.class);
-                    String phoneNumber = data2.get(getLayoutPosition());
+                    long phoneNumber = data2.get(getLayoutPosition());
                     String userId = data3.get(getLayoutPosition());
                     intent.putExtra("currentPhone", phoneNumber);
                     intent.putExtra("currentId", userId);

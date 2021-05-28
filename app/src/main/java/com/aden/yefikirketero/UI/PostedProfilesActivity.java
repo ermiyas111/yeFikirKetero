@@ -39,7 +39,7 @@ public class PostedProfilesActivity extends AppCompatActivity {
     //String[] s2 = new String[9];
     //use array list instead of String[]
     List<String> s1 = new ArrayList<>();
-    List<String> s2 = new ArrayList<>();
+    List<Long> s2 = new ArrayList<>();
     List<String> s3 = new ArrayList<>();
 
     @Override
@@ -78,9 +78,9 @@ public class PostedProfilesActivity extends AppCompatActivity {
                 for(Post p: posts){
                     s1.add(p.getName());
                     s2.add(p.getPhoneNumber());
-                    Log.d("phoneNumber", p.getPhoneNumber());
+//                    Log.d("phoneNumber", p.getPhoneNumber());
                     Log.d("name", p.getName());
-                    Log.d("age", p.getAge());
+//                    Log.d("age", p.getAge());
                     i++;
                 }
                 myAdapter.notifyDataSetChanged();

@@ -48,7 +48,7 @@ public class ReceivedPhoneNumbers extends AppCompatActivity {
 
     //use array list instead of String[]
     List<String> s1 = new ArrayList<>();
-    List<String> s2 = new ArrayList<>();
+    List<Long> s2 = new ArrayList<>();
     List<String> s3 = new ArrayList<>();
 
     @Override
@@ -91,9 +91,9 @@ public class ReceivedPhoneNumbers extends AppCompatActivity {
                     s1.add(p.getBio());
                     s2.add(p.getPhoneNumber());
                     s3.add(p.getUserId());
-                    Log.d("phoneNumber", p.getPhoneNumber());
+//                    Log.d("phoneNumber", p.getPhoneNumber());
                     Log.d("name", p.getName());
-                    Log.d("age", p.getAge());
+//                    Log.d("age", p.getAge());
                     i++;
                 }
                 phoneListAdapter.notifyDataSetChanged();

@@ -68,7 +68,7 @@ public class PostedProfilesTab extends Fragment {
     //String[] s2 = new String[9];
     //use array list instead of String[]
     List<String> s1 = new ArrayList<>();
-    List<String> s2 = new ArrayList<>();
+    List<Long> s2 = new ArrayList<>();
     List<String> s3 = new ArrayList<>();
 
     public PostedProfilesTab() {
@@ -157,9 +157,9 @@ public class PostedProfilesTab extends Fragment {
 
                 for(Post p: posts){
                     s1.add(p.getBio());
-                    Log.d("phoneNumber", p.getPhoneNumber());
+//                    Log.d("phoneNumber", p.getPhoneNumber());
                     Log.d("name", p.getName());
-                    Log.d("age", p.getAge());
+//                    Log.d("age", p.getAge());
                     i++;
                 }
                 postsAdapter.notifyDataSetChanged();

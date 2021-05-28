@@ -1,5 +1,6 @@
 package com.aden.yefikirketero.retrofit;
 
+import com.aden.yefikirketero.retrofit.model.Payment;
 import com.aden.yefikirketero.retrofit.model.PaymentUpload;
 import com.aden.yefikirketero.retrofit.model.Person;
 import com.aden.yefikirketero.retrofit.model.PhoneNotifications;
@@ -65,5 +66,10 @@ public interface YeFikirKeteroApi {
     Call<ResponseBody> upload(
             @Part("description") RequestBody description,
             @Part MultipartBody.Part file
+    );
+
+    @GET("received_phone_numbers/{id}")
+    Call<List<Payment>> getReceivedPhoneNumbers(
+            @Path("id") String id
     );
 }

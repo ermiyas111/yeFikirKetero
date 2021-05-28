@@ -2,60 +2,89 @@ package com.aden.yefikirketero.retrofit.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Post {
 
-    public Post(String userId, String phoneNumber, String name, String age, String bio, String isProfilePosted, String registeringTime, String sessionId) {
+    public Post(String userId, long phoneNumber, String name, int age, String gender, String religion, String city, String height, String job, String bio, int dateAgeStart, int dateAgeTop, String dateHeght, String dateReligion, String dateJob, boolean isPostApproved, String postingTime ) {
         this.userId = userId;
         this.phoneNumber = phoneNumber;
         this.name = name;
         this.age = age;
+        this.gender = gender;
+        this.religion = religion;
+        this.city = city;
+        this.height = height;
+        this.job = job;
         this.bio = bio;
-        this.isProfilePosted = isProfilePosted;
-        this.registeringTime = registeringTime;
-        this.sessionId = sessionId;
+        this.dateAgeStart = dateAgeStart;
+        this.dateAgeTop = dateAgeTop;
+        this.dateHeight = dateHeght;
+        this.dateReligion = dateReligion;
+        this.dateJob = dateJob;
+        this.isPostApproved = isPostApproved;
+        this.postingTime = postingTime;
     }
 
-
-    @SerializedName("_id")
+    @SerializedName("id")
     private String userId;
 
     @SerializedName("phone_number")
-    private String phoneNumber;
+    private long phoneNumber;
 
     @SerializedName("name")
     private String name;
 
     @SerializedName("age")
-    private String age;
+    private int age;
+
+    @SerializedName("Gender")
+    private String gender;
+
+    @SerializedName("Religion")
+    private String religion;
+
+    @SerializedName("city")
+    private String city;
+
+    @SerializedName("height")
+    private String height;
+
+    @SerializedName("job")
+    private String job;
 
     @SerializedName("bio")
     private String bio;
 
-    @SerializedName("is_profile_posted")
-    private String isProfilePosted;
+    @SerializedName("date_age_start")
+    private int dateAgeStart;
 
-    @SerializedName("registering_time")
-    private String registeringTime;
+    @SerializedName("date_age_top")
+    private int dateAgeTop;
 
-    @SerializedName("session_id")
-    private String sessionId;
+    @SerializedName("date_height")
+    private String dateHeight;
 
-    public String getUserId() {
-        return userId;
-    }
+    @SerializedName("date_religion")
+    private String dateReligion;
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    @SerializedName("date_job")
+    private String dateJob;
 
-    public String getPhoneNumber() {
+    @SerializedName("is_post_approved")
+    private boolean isPostApproved;
+
+    @SerializedName("posting_time")
+    private String postingTime;
+
+    //@SerializedName("phone_notifications")
+    //private List<Post> phoneNotifications;
+
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -67,12 +96,100 @@ public class Post {
         this.name = name;
     }
 
-    public String getAge() {
-        return age;
+    public String getGender() {
+        return gender;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getReligion() {
+        return religion;
+    }
+
+    public void setReligion(String religion) {
+        this.religion = religion;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public int getDateAgeStart() {
+        return dateAgeStart;
+    }
+
+    public void setDateAgeStart(int dateAgeStart) {
+        this.dateAgeStart = dateAgeStart;
+    }
+
+    public int getDateAgeTop() {
+        return dateAgeTop;
+    }
+
+    public void setDateAgeTop(int dateAgeTop) {
+        this.dateAgeTop = dateAgeTop;
+    }
+
+    public String getDateHeight() {
+        return dateHeight;
+    }
+
+    public void setDateHeight(String dateHeight) {
+        this.dateHeight = dateHeight;
+    }
+
+    public String getDateReligion() {
+        return dateReligion;
+    }
+
+    public void setDateReligion(String dateReligion) {
+        this.dateReligion = dateReligion;
+    }
+
+    public String getDateJob() {
+        return dateJob;
+    }
+
+    public void setDateJob(String dateJob) {
+        this.dateJob = dateJob;
+    }
+
+    public boolean getIsPostApproved() {
+        return isPostApproved;
+    }
+
+    public void setIsPostApproved(boolean isPostApproved) {
+        this.isPostApproved = isPostApproved;
+    }
+
+    public String getPostingTime() {
+        return postingTime;
+    }
+
+    public void setPostingTime(String postingTime) {
+        this.postingTime = postingTime;
     }
 
     public String getBio() {
@@ -83,27 +200,12 @@ public class Post {
         this.bio = bio;
     }
 
-    public String getIsProfilePosted() {
-        return isProfilePosted;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setIsProfilePosted(String isProfilePosted) {
-        this.isProfilePosted = isProfilePosted;
+    public void setUserId(String userID) {
+        this.userId = userId;
     }
 
-    public String getRegisteringTime() {
-        return registeringTime;
-    }
-
-    public void setRegisteringTime(String registeringTime) {
-        this.registeringTime = registeringTime;
-    }
-
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-    }
 }
