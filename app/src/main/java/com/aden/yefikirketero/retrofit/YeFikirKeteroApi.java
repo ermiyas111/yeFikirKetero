@@ -27,43 +27,54 @@ import retrofit2.http.Query;
 public interface YeFikirKeteroApi {
 
     //"http://192.168.43.226:3000";
-    String BASE_URL = "https://fikirketeronodejs.herokuapp.com/";
+//    String BASE_URL = "https://fikirketeronodejs.herokuapp.com/";
+    String BASE_URL = "https://pacific-citadel-12282.herokuapp.com/";
+
+
+//    @Headers("Content-Type: application/json")
+//    @GET("posts")
+//    Call<List<Post>> getPosts();
+//
+//    @Headers("Content-Type: application/json")
+//    @GET("get_phone_notifications/251904132755/{limit}")
+//    Call<List<Person>> getPhoneNotifications(
+//            @Path("limit") int calculatedLimit
+//    );
+//
+//    @Headers("Content-Type: application/json")
+//    @GET("received_requests/251904132755/{limit}")
+//    Call<List<Person>> getReceivedRequests(
+//            @Path("limit") int calculatedLimit
+//    );
+//
+//    @POST("users")
+//    Call<PostUpload> uploadPost(
+//            @Body PostUpload post
+//    );
+//
+//    @POST("person")
+//    Call<Person> uploadPerson(
+//            @Body Person person
+//    );
+//
+//    @POST("payment")
+//    Call<PaymentUpload> uploadPayment(
+//            @Body PaymentUpload paymentUpload
+//    );
+//
+//    @Multipart
+//    @POST("uploadAudio")
+//    Call<ResponseBody> upload(
+//            @Part("description") RequestBody description,
+//            @Part MultipartBody.Part file
+//    );
 
     @Headers("Content-Type: application/json")
-    @GET("posts")
-    Call<List<Post>> getPosts();
+    @GET("user/userPosts")
+    Call<Post> getPosts();
 
-    @Headers("Content-Type: application/json")
-    @GET("get_phone_notifications/251904132755/{limit}")
-    Call<List<Person>> getPhoneNotifications(
-            @Path("limit") int calculatedLimit
-    );
-
-    @Headers("Content-Type: application/json")
-    @GET("received_requests/251904132755/{limit}")
-    Call<List<Person>> getReceivedRequests(
-            @Path("limit") int calculatedLimit
-    );
-
-    @POST("users")
+    @POST("user/userPosts")
     Call<PostUpload> uploadPost(
             @Body PostUpload post
-    );
-
-    @POST("person")
-    Call<Person> uploadPerson(
-            @Body Person person
-    );
-
-    @POST("payment")
-    Call<PaymentUpload> uploadPayment(
-            @Body PaymentUpload paymentUpload
-    );
-
-    @Multipart
-    @POST("uploadAudio")
-    Call<ResponseBody> upload(
-            @Part("description") RequestBody description,
-            @Part MultipartBody.Part file
     );
 }

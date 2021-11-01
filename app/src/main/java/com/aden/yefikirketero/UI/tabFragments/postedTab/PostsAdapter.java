@@ -2,6 +2,7 @@ package com.aden.yefikirketero.UI.tabFragments.postedTab;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.aden.yefikirketero.UI.getPhone.DescribePaymentOptions;
 import com.aden.yefikirketero.UI.OnLoadMoreListener;
 import com.aden.yefikirketero.UI.getPhone.PaymentActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -24,9 +26,21 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     Context ct;
 
-    List<String> data1;
-    List<String> data2;
-    List<String> data3;
+    List<String> userId = new ArrayList<>();
+    List<String> name = new ArrayList<>();
+    List<String> age = new ArrayList<>();
+    List<String> gender = new ArrayList<>();
+    List<String> phone = new ArrayList<>();
+    List<String> address = new ArrayList<>();
+    List<String> height = new ArrayList<>();
+    List<String> religion = new ArrayList<>();
+    List<String> bio = new ArrayList<>();
+    List<String> job = new ArrayList<>();
+    List<String> dateMinAge = new ArrayList<>();
+    List<String> dateMaxAge = new ArrayList<>();
+    List<String> dateReligion = new ArrayList<>();
+    List<String> dateHeight = new ArrayList<>();
+    List<String> dateJob = new ArrayList<>();
 
     private boolean isLoading;
     private int visibleThreshold = 5;
@@ -37,11 +51,23 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
 
-    public PostsAdapter(RecyclerView recyclerView, Context context, List<String> s1, List<String> s2, List<String> s3) {
+    public PostsAdapter(RecyclerView recyclerView, Context context,  List<String> userId, List<String> name, List<String> age, List<String> gender, List<String> phone, List<String> address, List<String> height,List<String> religion, List<String> bio, List<String> job, List<String> dateMinAge, List<String> dateMaxAge, List<String> dateReligion, List<String> dateHeight, List<String> dateJob) {
         ct = context;
-        data1 = s1;
-        data2 = s2;
-        data3 = s3;
+        this.userId = userId;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.phone = phone;
+        this.address = address;
+        this.religion = religion;
+        this.height = height;
+        this.bio = bio;
+        this.job = job;
+        this.dateMinAge = dateMinAge;
+        this.dateMaxAge = dateMaxAge;
+        this.dateReligion = dateReligion;
+        this.dateHeight = dateHeight;
+        this.dateJob = dateJob;
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -62,7 +88,7 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
-        return data1.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+        return name.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
     @NonNull
@@ -84,7 +110,61 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MyViewHolder) {
             MyViewHolder myViewHolder = (MyViewHolder) holder;
-            myViewHolder.myText1.setText(data1.get(position));
+            String post = ct.getResources().getString(R.string.decoration) + "\n\n";
+            String myInfo = "";
+            if(name.get(position) != null && !name.get(position).equals("")){
+                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.name_label) + " " + name.get(position);
+            }
+            if(age.get(position) != null && !age.get(position).equals("")){
+                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.age_label)+ " " + age.get(position);
+            }
+            if(gender.get(position) != null && !gender.get(position).equals("")){
+                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.gender_label)+ " " + gender.get(position);
+            }
+            if(phone.get(position) != null && !phone.get(position).equals("")){
+                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.phone_label)+ " " + phone.get(position);
+            }
+            if(address.get(position) != null && !address.get(position).equals("")){
+                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.address_label)+ " " + address.get(position);
+            }
+            if(height.get(position) != null && !height.get(position).equals("")){
+                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.height_label)+ " " + height.get(position);
+            }
+            if(religion.get(position) != null && !religion.get(position).equals("")){
+                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.religion_label)+ " " + religion.get(position);
+            }
+            if(job.get(position) != null && !job.get(position).equals("")){
+                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.job_label)+ " " + job.get(position);
+            }
+
+            String dateInfo = "";
+            if(dateMinAge.get(position) != null && !dateMinAge.get(position).equals("")){
+                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_min_age_label)+ " " + dateMinAge.get(position);
+            }
+            if(dateMaxAge.get(position) != null && !dateMaxAge.get(position).equals("")){
+                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_max_age_label)+ " " + dateMaxAge.get(position);
+            }
+            if(dateHeight.get(position) != null && !dateHeight.get(position).equals("")){
+                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_height_label)+ " " + dateHeight.get(position);
+            }
+            if(dateReligion.get(position) != null && !dateReligion.get(position).equals("")){
+                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_religion_label)+ " " + dateReligion.get(position);
+            }
+            if(dateJob.get(position) != null && !dateJob.get(position).equals("")){
+                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_job_label)+ " " + dateJob.get(position);
+            }
+            if(bio.get(position) != null && !bio.get(position).equals("")){
+                dateInfo = dateInfo + "\n\n" + bio.get(position);
+            }
+
+            if(!dateInfo.equals("")){
+                dateInfo = "\n\n" + ct.getResources().getString(R.string.your_date_info_label) + dateInfo;
+            }
+
+            post = post + myInfo + dateInfo;
+
+
+            myViewHolder.myText1.setText(post);
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);
@@ -95,7 +175,7 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return  data1 == null ? 0 : data1.size();
+        return  name == null ? 0 : name.size();
     }
 
 
@@ -120,10 +200,10 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             findPhone.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(ct, PaymentActivity.class);
-                    String phoneNumber = data2.get(getLayoutPosition());
-                    String userId = data3.get(getLayoutPosition());
+                    String phoneNumber = phone.get(getLayoutPosition());
+                    String id = userId.get(getLayoutPosition());
                     intent.putExtra("currentPhone", phoneNumber);
-                    intent.putExtra("currentId", userId);
+                    intent.putExtra("currentId", id);
                     ct.startActivity(intent);
                 }
             });

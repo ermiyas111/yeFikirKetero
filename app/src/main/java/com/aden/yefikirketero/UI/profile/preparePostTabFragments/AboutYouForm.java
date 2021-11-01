@@ -1,7 +1,9 @@
 package com.aden.yefikirketero.UI.profile.preparePostTabFragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +41,10 @@ public class AboutYouForm extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    public ArrayList<String> aboutYouData = new ArrayList<String>();
+
     TextInputLayout genderTextInput;
     AutoCompleteTextView genderAutocomplete;
-
-    TextInputLayout locationTextInput;
-    AutoCompleteTextView locationAutocomplete;
 
     TextInputLayout religionTextInput;
     AutoCompleteTextView religionAutocomplete;
@@ -63,7 +65,7 @@ public class AboutYouForm extends Fragment {
     ArrayAdapter<String> heightAdapter;
 
     MaterialButton cancelButton, nextButton;
-    TextInputEditText nameEditText, ageEditText, phoneEditText, jobEditText;
+    TextInputEditText nameEditText, ageEditText, phoneEditText, locationEditText, jobEditText;
 
 
     int oneRoundItems = 0;
@@ -119,13 +121,11 @@ public class AboutYouForm extends Fragment {
         nameEditText= view.findViewById(R.id.name_edit_text);
         ageEditText= view.findViewById(R.id.age_edit_text);
         phoneEditText= view.findViewById(R.id.phone_edit_text);
+        locationEditText= view.findViewById(R.id.location_edit_text);
         jobEditText= view.findViewById(R.id.job_edit_text);
 
         genderTextInput = view.findViewById(R.id.gender_text_input);
         genderAutocomplete = view.findViewById(R.id.gender_autocomplete);
-
-        locationTextInput = view.findViewById(R.id.location_text_input);
-        locationAutocomplete = view.findViewById(R.id.location_autocomplete);
 
         religionTextInput = view.findViewById(R.id.religion_text_input);
         religionAutocomplete = view.findViewById(R.id.religion_autocomplete);
@@ -153,9 +153,6 @@ public class AboutYouForm extends Fragment {
 
         genderAdapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, genderList);
         genderAutocomplete.setAdapter(genderAdapter);
-
-        locationAdapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, locationList);
-        locationAutocomplete.setAdapter(locationAdapter);
 
         religionAdapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, religionList);
         religionAutocomplete.setAdapter(religionAdapter);
@@ -195,6 +192,16 @@ public class AboutYouForm extends Fragment {
                 }
 
                 if(isValid){
+                    aboutYouData.add(nameEditText.getText().toString());
+                    aboutYouData.add(ageEditText.getText().toString());
+                    aboutYouData.add(genderAutocomplete.getText().toString());
+                    aboutYouData.add(phoneEditText.getText().toString());
+                    aboutYouData.add(locationEditText.getText().toString());
+                    aboutYouData.add(heightAutocomplete.getText().toString());
+                    aboutYouData.add(religionAutocomplete.getText().toString());
+                    aboutYouData.add("");
+                    aboutYouData.add(jobEditText.getText().toString());
+                    saveArrayList(aboutYouData, "aboutYou");
                     TabLayout tabs = getActivity().findViewById(R.id.tabLayout);
                     tabs.getTabAt(1).select();
                 }
@@ -206,5 +213,15 @@ public class AboutYouForm extends Fragment {
                 getActivity().finish();
             }
         });
+    }
+
+    public void saveArrayList(ArrayList<String> list, String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.apply();
+
     }
 }

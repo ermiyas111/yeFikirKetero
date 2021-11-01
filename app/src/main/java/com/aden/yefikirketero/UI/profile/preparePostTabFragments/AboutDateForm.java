@@ -1,7 +1,11 @@
 package com.aden.yefikirketero.UI.profile.preparePostTabFragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +15,25 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.aden.yefikirketero.R;
+import com.aden.yefikirketero.UI.LauncherActivity;
+import com.aden.yefikirketero.UI.profile.PrepareMyPost;
 import com.aden.yefikirketero.UI.tabFragments.byChoiceTab.ForYouAdapter;
 import com.aden.yefikirketero.UI.tabFragments.byChoiceTab.ForYouTab;
 import com.aden.yefikirketero.retrofit.YeFikirKeteroApi;
+import com.aden.yefikirketero.retrofit.model.Post;
+import com.aden.yefikirketero.retrofit.model.PostUpload;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +41,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 public class AboutDateForm extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -38,6 +60,8 @@ public class AboutDateForm extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    YeFikirKeteroApi api;
 
     TextInputLayout religionTextInput;
     AutoCompleteTextView religionAutocomplete;
@@ -152,6 +176,15 @@ public class AboutDateForm extends Fragment {
 
                 if(isValid){
                     //handle web request here
+                    //retrofit method call
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(YeFikirKeteroApi.BASE_URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    api = retrofit.create(YeFikirKeteroApi.class);
+
+                    postUserData();
                 }
             }
         });
@@ -162,5 +195,42 @@ public class AboutDateForm extends Fragment {
                 tabs.getTabAt(0).select();
             }
         });
+    }
+
+    private void postUserData(){
+        Intent intent = new Intent(getActivity(), LauncherActivity.class);
+        //Intent intent = new Intent(context, RecordAudio.class);
+        startActivity(intent);
+        PostUpload.Preference preference = new PostUpload.Preference(
+                ageEditTextFrom.getText().toString(),
+                ageEditTextTo.getText().toString(),
+                religionAutocomplete.getText().toString(),
+                heightAutocomplete.getText().toString(),
+                jobEditText.getText().toString()
+        );
+        ArrayList<String> aboutYou = new ArrayList<>();
+        aboutYou = getArrayList("aboutYou");
+        PostUpload postUpload = new PostUpload(aboutYou.get(0), Integer.valueOf(aboutYou.get(1)), aboutYou.get(2), aboutYou.get(3), aboutYou.get(4), aboutYou.get(5), aboutYou.get(6), aboutYou.get(7), aboutYou.get(8), preference);
+        Call<PostUpload> call = api.uploadPost(postUpload);
+        call.enqueue(new Callback<PostUpload>() {
+            @Override
+            public void onResponse(Call<PostUpload> call, Response<PostUpload> response) {
+                Toast.makeText(getActivity(),"You have successfully posted your profile",Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<PostUpload> call, Throwable t) {
+                Toast.makeText(getActivity(),"Posting profile unsuccessful",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public ArrayList<String> getArrayList(String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        Gson gson = new Gson();
+        String json = prefs.getString(key, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(json, type);
     }
 }

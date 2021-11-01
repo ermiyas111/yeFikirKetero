@@ -11,5 +11,7 @@
     <color name="buttonsShadowColor">#F3EEE0</color>
     <color name="silentColor">#EEEEEE</color>
     <color name="lightGrey">#999999</color>
+    <color name="darkGrey">#555555</color>
     <color name="blackColor">#000000</color>
+    <color name="about_text_color">#bdc3c7</color>
 </resources>

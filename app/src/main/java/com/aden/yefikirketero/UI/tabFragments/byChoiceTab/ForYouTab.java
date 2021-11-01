@@ -190,155 +190,155 @@ public class ForYouTab extends Fragment {
     }
 
     private void fetchReceivedPhoneNotifications(){
-        int calculatedLimit = oneFullRound - oneRoundItems;
-        Call<List<Person>> call = api.getPhoneNotifications(calculatedLimit);
-        call.enqueue(new Callback<List<Person>>() {
-            @Override
-            public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
-                List<Person> phoneNotifications = response.body();
-
-                int count =0;
-
-                List<Post> users = phoneNotifications.get(0).getPhoneNotifications();
-                for(Post n: users){
-                    addItemsToLists(n.getName());
-                    //Log.d("phoneNumber", p.getPhoneNumber());
-                    //Log.d("name", p.getName());
-                    //Log.d("age", p.getAge());
-                    count++;
-                    oneRoundItems++;
-                }
-                checkIndexesArrayNotNullAndAddOtherIndexValue(count, 0);
-                forYouAdapter.notifyDataSetChanged();
-                //forYouAdapter.setLoaded();
-
-                if(oneRoundItems >=15){
-                    //loadMoreListen(notificationString);
-                }else{
-                    //fetchMatchedCouples();
-                    fetchReceivedRequests();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Person>> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        int calculatedLimit = oneFullRound - oneRoundItems;
+//        Call<List<Person>> call = api.getPhoneNotifications(calculatedLimit);
+//        call.enqueue(new Callback<List<Person>>() {
+//            @Override
+//            public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
+//                List<Person> phoneNotifications = response.body();
+//
+//                int count =0;
+//
+//                List<Post> users = phoneNotifications.get(0).getPhoneNotifications();
+//                for(Post n: users){
+//                    addItemsToLists(n.getName());
+//                    //Log.d("phoneNumber", p.getPhoneNumber());
+//                    //Log.d("name", p.getName());
+//                    //Log.d("age", p.getAge());
+//                    count++;
+//                    oneRoundItems++;
+//                }
+//                checkIndexesArrayNotNullAndAddOtherIndexValue(count, 0);
+//                forYouAdapter.notifyDataSetChanged();
+//                //forYouAdapter.setLoaded();
+//
+//                if(oneRoundItems >=15){
+//                    //loadMoreListen(notificationString);
+//                }else{
+//                    //fetchMatchedCouples();
+//                    fetchReceivedRequests();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Person>> call, Throwable t) {
+//                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void fetchMatchedCouples(){
-        Call<List<Post>> call = api.getPosts();
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                List<Post> posts = response.body();
-
-                int count =0;
-
-                for(Post p: posts){
-                    if(count == 0){
-                        allItems.add("matched_couples_title");
-                    }
-                    matchedCouples.add(p.getBio());
-                    allItems.add(p.getBio());
-                    Log.d("phoneNumber", p.getPhoneNumber());
-                    Log.d("name", p.getName());
-                    Log.d("age", p.getAge());
-                    count++;
-                    oneRoundItems++;
-                }
-                forYouAdapter.notifyDataSetChanged();
-                forYouAdapter.setLoaded();
-
-                if(oneRoundItems >=15){
-                    loadMoreListen(matchedCouplesString);
-                }else{
-                    //fetchReceivedRequests();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Call<List<Post>> call = api.getPosts();
+//        call.enqueue(new Callback<List<Post>>() {
+//            @Override
+//            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+//                List<Post> posts = response.body();
+//
+//                int count =0;
+//
+//                for(Post p: posts){
+//                    if(count == 0){
+//                        allItems.add("matched_couples_title");
+//                    }
+//                    matchedCouples.add(p.getBio());
+//                    allItems.add(p.getBio());
+//                    Log.d("phoneNumber", p.getPhone());
+//                    Log.d("name", p.getName());
+////                    Log.d("age", p.getAge());
+//                    count++;
+//                    oneRoundItems++;
+//                }
+//                forYouAdapter.notifyDataSetChanged();
+//                forYouAdapter.setLoaded();
+//
+//                if(oneRoundItems >=15){
+//                    loadMoreListen(matchedCouplesString);
+//                }else{
+//                    //fetchReceivedRequests();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Post>> call, Throwable t) {
+//                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void fetchReceivedRequests(){
-        int calculatedLimit = oneFullRound - oneRoundItems;
-        Call<List<Person>> call = api.getReceivedRequests(calculatedLimit);
-        call.enqueue(new Callback<List<Person>>() {
-            @Override
-            public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
-                List<Person> receivedLikes = response.body();
-
-                int count =0;
-
-                List<Post> users = receivedLikes.get(0).getLikedBy();
-                for(Post r: users){
-                    if(count == 0){
-                        allItems.add("received_requests_title");
-                    }
-                    addItemsToLists(r.getBio());
-                    //Log.d("phoneNumber", p.getPhoneNumber());
-                    //Log.d("name", p.getName());
-                    //Log.d("age", p.getAge());
-                    count++;
-                    oneRoundItems++;
-                }
-                checkIndexesArrayNotNullAndAddOtherIndexValue(count, 1);
-                forYouAdapter.notifyDataSetChanged();
-                forYouAdapter.setLoaded();
-
-                if(oneRoundItems >=15){
-                    //loadMoreListen(receivedRequestsString);
-                }else{
-                    fetchByChoice();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Person>> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        int calculatedLimit = oneFullRound - oneRoundItems;
+//        Call<List<Person>> call = api.getReceivedRequests(calculatedLimit);
+//        call.enqueue(new Callback<List<Person>>() {
+//            @Override
+//            public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
+//                List<Person> receivedLikes = response.body();
+//
+//                int count =0;
+//
+//                List<Post> users = receivedLikes.get(0).getLikedBy();
+//                for(Post r: users){
+//                    if(count == 0){
+//                        allItems.add("received_requests_title");
+//                    }
+//                    addItemsToLists(r.getBio());
+//                    //Log.d("phoneNumber", p.getPhoneNumber());
+//                    //Log.d("name", p.getName());
+//                    //Log.d("age", p.getAge());
+//                    count++;
+//                    oneRoundItems++;
+//                }
+//                checkIndexesArrayNotNullAndAddOtherIndexValue(count, 1);
+//                forYouAdapter.notifyDataSetChanged();
+//                forYouAdapter.setLoaded();
+//
+//                if(oneRoundItems >=15){
+//                    //loadMoreListen(receivedRequestsString);
+//                }else{
+//                    fetchByChoice();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Person>> call, Throwable t) {
+//                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void fetchByChoice(){
-        Call<List<Post>> call = api.getPosts();
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                List<Post> posts = response.body();
-
-                int count =0;
-
-                for(Post p: posts){
-                    if(count == 0){
-                        allItems.add("by_choice_title");
-                    }
-                    byChoice.add(p.getBio());
-                    allItems.add(p.getBio());
-                    Log.d("phoneNumber", p.getPhoneNumber());
-                    Log.d("name", p.getName());
-                    Log.d("age", p.getAge());
-                    count++;
-                    oneRoundItems++;
-                }
-                forYouAdapter.notifyDataSetChanged();
-                forYouAdapter.setLoaded();
-
-                loadMoreListen(byChoiceString);
-            }
-
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Call<List<Post>> call = api.getPosts();
+//        call.enqueue(new Callback<List<Post>>() {
+//            @Override
+//            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+//                List<Post> posts = response.body();
+//
+//                int count =0;
+//
+//                for(Post p: posts){
+//                    if(count == 0){
+//                        allItems.add("by_choice_title");
+//                    }
+//                    byChoice.add(p.getBio());
+//                    allItems.add(p.getBio());
+//                    Log.d("phoneNumber", p.getPhone());
+//                    Log.d("name", p.getName());
+////                    Log.d("age", p.getAge());
+//                    count++;
+//                    oneRoundItems++;
+//                }
+//                forYouAdapter.notifyDataSetChanged();
+//                forYouAdapter.setLoaded();
+//
+//                loadMoreListen(byChoiceString);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Post>> call, Throwable t) {
+//                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void loadMoreListen(String calledBy){

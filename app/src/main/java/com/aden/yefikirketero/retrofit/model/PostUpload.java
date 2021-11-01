@@ -6,19 +6,23 @@ import java.util.List;
 
 public class PostUpload {
 
-    public PostUpload(long phoneNumber, String name, int age, String bio, String isProfilePosted, int registeringTime, int sessionId) {
-        this.phoneNumber = phoneNumber;
+    public PostUpload(String name, int age, String gender, String phone, String address, String height, String religion, String bio, String job, PostUpload.Preference preference) {
         this.name = name;
         this.age = age;
+        this.gender = gender;
+        this.phone = phone;
+        this.address = address;
+        this.height = height;
+        this.religion = religion;
         this.bio = bio;
-        this.isProfilePosted = isProfilePosted;
-        this.registeringTime = registeringTime;
-        this.sessionId = sessionId;
+        this.job = job;
+        this.preference = preference;
+
     }
 
 
-    @SerializedName("phone_number")
-    private long phoneNumber;
+    @SerializedName("id")
+    private String userId;
 
     @SerializedName("name")
     private String name;
@@ -26,27 +30,94 @@ public class PostUpload {
     @SerializedName("age")
     private int age;
 
+    @SerializedName("gender")
+    private String gender;
+
+    @SerializedName("phone")
+    private String phone;
+
+    @SerializedName("address")
+    private String address;
+
+    @SerializedName("height")
+    private String height;
+
+    @SerializedName("religion")
+    private String religion;
+
     @SerializedName("bio")
     private String bio;
 
-    @SerializedName("is_profile_posted")
-    private String isProfilePosted;
+    @SerializedName("job")
+    private String job;
 
-    @SerializedName("registering_time")
-    private int registeringTime;
+    @SerializedName("preference")
+    private PostUpload.Preference preference;
 
-    @SerializedName("session_id")
-    private int sessionId;
+    public static class Preference {
 
-    //@SerializedName("phone_notifications")
-    //private List<Post> phoneNotifications;
+        public Preference( String minAge, String maxAge, String religion, String height, String job) {
+            this.minAge = minAge;
+            this.maxAge = maxAge;
+            this.religion = religion;
+            this.height = height;
+            this.job = job;
+        }
 
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
+        @SerializedName("minAge")
+        private String minAge;
 
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        @SerializedName("maxAge")
+        private String maxAge;
+
+        @SerializedName("religion")
+        private String religion;
+
+        @SerializedName("height")
+        private String height;
+
+        @SerializedName("job")
+        private String job;
+
+        public String getMinAge() {
+            return minAge;
+        }
+
+        public void setMinAge(String minAge) {
+            this.minAge = minAge;
+        }
+
+        public String getMaxAge() {
+            return maxAge;
+        }
+
+        public void setMaxAge(String maxAge) {
+            this.maxAge = maxAge;
+        }
+
+        public String getReligion() {
+            return religion;
+        }
+
+        public void setReligion(String religion) {
+            religion = religion;
+        }
+
+        public String getHeight() {
+            return height;
+        }
+
+        public void setHeight(String height) {
+            this.height = height;
+        }
+
+        public String getJob() {
+            return job;
+        }
+
+        public void setJob(String job) {
+            this.job = job;
+        }
     }
 
     public String getName() {
@@ -65,35 +136,59 @@ public class PostUpload {
         this.age = age;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getReligion() {
+        return religion;
+    }
+
+    public void setReligion(String religion) {
+        this.religion = religion;
+    }
+
     public String getBio() {
         return bio;
     }
 
     public void setBio(String bio) {
-        this.bio = bio;
+        bio = bio;
     }
 
-    public String getIsProfilePosted() {
-        return isProfilePosted;
+    public String getJob() {
+        return job;
     }
 
-    public void setIsProfilePosted(String isProfilePosted) {
-        this.isProfilePosted = isProfilePosted;
-    }
-
-    public int getRegisteringTime() {
-        return registeringTime;
-    }
-
-    public void setRegisteringTime(int registeringTime) {
-        this.registeringTime = registeringTime;
-    }
-
-    public int getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
+    public void setJob(String job) {
+        this.job = job;
     }
 }

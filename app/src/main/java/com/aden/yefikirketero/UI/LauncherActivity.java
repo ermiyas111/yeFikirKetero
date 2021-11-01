@@ -4,9 +4,11 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -32,6 +34,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,9 +71,21 @@ public class LauncherActivity extends AppCompatActivity {
     //String[] s1 = new String[9];
     //String[] s2 = new String[9];
     //use array list instead of String[]
-    List<String> s1 = new ArrayList<>();
-    List<String> s2 = new ArrayList<>();
-    List<String> s3 = new ArrayList<>();
+    List<String> userId = new ArrayList<>();
+    List<String> name = new ArrayList<>();
+    List<String> age = new ArrayList<>();
+    List<String> gender = new ArrayList<>();
+    List<String> phone = new ArrayList<>();
+    List<String> address = new ArrayList<>();
+    List<String> height = new ArrayList<>();
+    List<String> religion = new ArrayList<>();
+    List<String> bio = new ArrayList<>();
+    List<String> job = new ArrayList<>();
+    List<String> dateMinAge = new ArrayList<>();
+    List<String> dateMaxAge = new ArrayList<>();
+    List<String> dateReligion = new ArrayList<>();
+    List<String> dateHeight = new ArrayList<>();
+    List<String> dateJob = new ArrayList<>();
 
     /*TabLayout tabLayout;
     ViewPager viewPager;
@@ -122,13 +137,17 @@ public class LauncherActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        postsAdapter = new PostsAdapter(recyclerView, context, s1, s2, s3);
+        postsAdapter = new PostsAdapter(recyclerView, context, userId, name, age, gender, phone, address, height, religion, bio, job, dateMinAge, dateMaxAge, dateReligion, dateHeight, dateJob);
         recyclerView.setAdapter(postsAdapter);
 
         myFab = findViewById(R.id.fab);
 
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+//                ArrayList<String> phoneList = new ArrayList();
+//                phoneList.add("0904132755");
+//                phoneList.add("0944286051");
+//                saveArrayList(phoneList, "phoneList");
                 Intent intent = new Intent(context, PrepareMyPost.class);
                 //Intent intent = new Intent(context, RecordAudio.class);
                 startActivity(intent);
@@ -170,15 +189,15 @@ public class LauncherActivity extends AppCompatActivity {
         List<String> temp1 = new ArrayList<>();
         //List<String> temp2 = new ArrayList<>();
         //List<String> temp3 = new ArrayList<>();
-        for(String d: s1){
-            //or use .equal(text) with you want equal match
-            //use .toLowerCase() for better matches
-            if(d != null) {
-                if (d.contains(text)) {
-                    temp1.add(d);
-                }
-            }
-        }
+//        for(String d: s1){
+//            //or use .equal(text) with you want equal match
+//            //use .toLowerCase() for better matches
+//            if(d != null) {
+//                if (d.contains(text)) {
+//                    temp1.add(d);
+//                }
+//            }
+//        }
 //        for(String d: s2){
 //            //or use .equal(text) with you want equal match
 //            //use .toLowerCase() for better matches
@@ -205,92 +224,112 @@ public class LauncherActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_app_bar, menu);
 
-        MenuItem searchViewItem = menu.findItem(R.id.search);
-        // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) searchViewItem.getActionView();
-        searchEditText = (EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        searchEditText.setTextColor(getResources().getColor(R.color.whiteColor));
-        searchEditText.setHintTextColor(getResources().getColor(R.color.whiteColor));
-        searchView.setQueryHint("Search for Product,Brands...");
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        searchView.setSubmitButtonEnabled(true);
-
-        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
-            public boolean onQueryTextChange(String newText) {
-                // This is your adapter that will be filtered
-                Toast.makeText(getApplicationContext(),"textChanged :"+newText,Toast.LENGTH_LONG).show();
-
-                return true;
-            }
-
-            public boolean onQueryTextSubmit(String query) {
-                // **Here you can get the value "query" which is entered in the search box.**
-
-                //Toast.makeText(getApplicationContext(),"searchvalue :"+query,Toast.LENGTH_LONG).show();
-
-                return true;
-            }
-        };
-        searchView.setOnQueryTextListener(queryTextListener);
-
-
-        //when inputting search text
-        searchEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-                // filter your list from your input
-                filter(s.toString());
-                //you can use runnable postDelayed like 500 ms to delay search text
-            }
-        });
+//        MenuItem searchViewItem = menu.findItem(R.id.search);
+//        // Get the SearchView and set the searchable configuration
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        searchView = (SearchView) searchViewItem.getActionView();
+//        searchEditText = (EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+//        searchEditText.setTextColor(getResources().getColor(R.color.whiteColor));
+//        searchEditText.setHintTextColor(getResources().getColor(R.color.whiteColor));
+//        searchView.setQueryHint("Search for Product,Brands...");
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//        searchView.setMaxWidth(Integer.MAX_VALUE);
+//        searchView.setSubmitButtonEnabled(true);
+//
+//        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+//            public boolean onQueryTextChange(String newText) {
+//                // This is your adapter that will be filtered
+//                Toast.makeText(getApplicationContext(),"textChanged :"+newText,Toast.LENGTH_LONG).show();
+//
+//                return true;
+//            }
+//
+//            public boolean onQueryTextSubmit(String query) {
+//                // **Here you can get the value "query" which is entered in the search box.**
+//
+//                //Toast.makeText(getApplicationContext(),"searchvalue :"+query,Toast.LENGTH_LONG).show();
+//
+//                return true;
+//            }
+//        };
+//        searchView.setOnQueryTextListener(queryTextListener);
+//
+//
+//        //when inputting search text
+//        searchEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//                // TODO Auto-generated method stub
+//            }
+//
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//                // TODO Auto-generated method stub
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//                // filter your list from your input
+//                filter(s.toString());
+//                //you can use runnable postDelayed like 500 ms to delay search text
+//            }
+//        });
 
         return true;
     }
 
     private void fetchFromRetrofit(){
-        Call<List<Post>> call = api.getPosts();
-        call.enqueue(new Callback<List<Post>>() {
+        Call<Post> call = api.getPosts();
+        call.enqueue(new Callback<Post>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+            public void onResponse(Call<Post> call, Response<Post> response) {
                 progressIndicator.setVisibility(GONE);
                 myFab.setVisibility(VISIBLE);
 
-                List<Post> posts = response.body();
+                Post posts = response.body();
 
                 int i =0;
 
-                for(Post p: posts){
-                    s1.add(p.getBio());
-                    s2.add(p.getPhoneNumber());
-                    s3.add(p.getUserId());
-                    Log.d("phoneNumber", p.getPhoneNumber());
+                for(Post.UserData p: posts.getData()){
+                    userId.add(p.getUserId());
+                    name.add(p.getName());
+                    age.add(String.valueOf(p.getAge()));
+                    gender.add(p.getGender());
+                    phone.add(p.getPhone());
+                    address.add(p.getAddress());
+                    religion.add(p.getReligion());
+                    height.add(p.getHeight());
+                    bio.add(p.getBio());
+                    job.add(p.getJob());
+                    dateMinAge.add(p.getPreference().getMinAge());
+                    dateMaxAge.add(p.getPreference().getMaxAge());
+                    dateReligion.add(p.getPreference().getReligion());
+                    dateHeight.add(p.getPreference().getHeight());
+                    dateJob.add(p.getPreference().getJob());
+
+//                    Log.d("phoneNumber", p.getPhone());
                     Log.d("name", p.getName());
-                    Log.d("age", p.getAge());
+//                    Log.d("age", p.getAge());
                     i++;
                 }
+
+                Log.d("counter", String.valueOf((i)));
+
                 postsAdapter.notifyDataSetChanged();
                 postsAdapter.setLoaded();
 
-                loadMoreListen();
+                if(i >= 10){
+                    loadMoreListen();
+                } else {
+//                Toast.makeText(context, "Loading data completed", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
+            public void onFailure(Call<Post> call, Throwable t) {
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
                 progressIndicator.setVisibility(GONE);
                 MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(context)
@@ -326,37 +365,44 @@ public class LauncherActivity extends AppCompatActivity {
         postsAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                if (s1.size() <= 28) {
-                    s1.add(null);
-                    postsAdapter.notifyItemInserted(s1.size() - 1);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            s1.remove(s1.size() - 1);
-                            postsAdapter.notifyItemRemoved(s1.size());
+                name.add(null);
+                postsAdapter.notifyItemInserted(name.size() - 1);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        name.remove(name.size() - 1);
+                        postsAdapter.notifyItemRemoved(name.size());
 
-                            //Generating more data
-                            fetchFromRetrofit();
-                        }
-                    }, 5000);
-                } else {
-                    Toast.makeText(context, "Loading data completed", Toast.LENGTH_SHORT).show();
-                }
+                        //Generating more data
+                        fetchFromRetrofit();
+                    }
+                }, 5000);
+
             }
         });
     }
 
     public void updateList(List<String> list1){
         //clear lists
-        s1.clear();
+        name.clear();
 //        s2.clear();
 //        s3.clear();
 
         //replace with new given lists
-        s1 = list1;
+        name = list1;
 //        s2 = list2;
 //        s3 = list3;
 
         postsAdapter.notifyDataSetChanged();
+    }
+
+    public void saveArrayList(ArrayList<String> list, String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.apply();
+
     }
 }

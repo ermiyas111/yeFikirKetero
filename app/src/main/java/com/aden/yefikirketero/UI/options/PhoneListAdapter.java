@@ -62,7 +62,7 @@ public class PhoneListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        return data1.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+        return VIEW_TYPE_ITEM;
     }
 
     @NonNull
@@ -70,11 +70,8 @@ public class PhoneListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
             LayoutInflater inflater = LayoutInflater.from(ct);
-            View view = inflater.inflate(R.layout.item_each_post, parent, false);
-            return new PhoneListAdapter.MyViewHolder(view);
-        } else if (viewType == VIEW_TYPE_LOADING) {
-            View view = LayoutInflater.from(ct).inflate(R.layout.item_progress_bar, parent, false);
-            return new PhoneListAdapter.LoadingViewHolder(view);
+            View view = inflater.inflate(R.layout.item_each_received, parent, false);
+            return new MyViewHolder(view);
         }
         return null;
     }
@@ -82,12 +79,9 @@ public class PhoneListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof PostsAdapter.MyViewHolder) {
-            PhoneListAdapter.MyViewHolder myViewHolder = (PhoneListAdapter.MyViewHolder) holder;
-            myViewHolder.myText1.setText(data1.get(position));
-        } else if (holder instanceof PhoneListAdapter.LoadingViewHolder) {
-            PhoneListAdapter.LoadingViewHolder loadingViewHolder = (PhoneListAdapter.LoadingViewHolder) holder;
-            loadingViewHolder.progressBar.setIndeterminate(true);
+        if (holder instanceof MyViewHolder) {
+            MyViewHolder myViewHolder = (MyViewHolder) holder;
+            myViewHolder.phoneNumberReceived.setText(data1.get(position));
         }
 
         //check what number the position is and call retrofit
@@ -99,43 +93,14 @@ public class PhoneListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    public void setOnLoadMoreListener(OnLoadMoreListener mOnLoadMoreListener) {
-        this.onLoadMoreListener = mOnLoadMoreListener;
-    }
-
-    public void setLoaded() {
-        isLoading = false;
-    }
-
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView myText1;
-        Button findPhone;
+        TextView phoneNumberReceived;
 
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
-            myText1 = itemView.findViewById(R.id.textView3);
-            findPhone = itemView.findViewById(R.id.findPhone);
-
-            findPhone.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent(ct, PaymentActivity.class);
-                    String phoneNumber = data2.get(getLayoutPosition());
-                    String userId = data3.get(getLayoutPosition());
-                    intent.putExtra("currentPhone", phoneNumber);
-                    intent.putExtra("currentId", userId);
-                    ct.startActivity(intent);
-                }
-            });
+            phoneNumberReceived = itemView.findViewById(R.id.phone_number_received);
         }
     }
 
-    private class LoadingViewHolder extends RecyclerView.ViewHolder {
-        public ProgressBar progressBar;
-
-        public LoadingViewHolder(View view) {
-            super(view);
-            progressBar = (ProgressBar) view.findViewById(R.id.progressBar1);
-        }
-    }
 }

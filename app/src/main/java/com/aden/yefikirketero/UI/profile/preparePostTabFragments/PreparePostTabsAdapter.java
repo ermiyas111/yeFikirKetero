@@ -3,7 +3,7 @@ package com.aden.yefikirketero.UI.profile.preparePostTabFragments;
 import android.content.Context;
 
 import com.aden.yefikirketero.UI.tabFragments.byChoiceTab.ForYouTab;
-import com.aden.yefikirketero.UI.tabFragments.postedTab.PostedProfilesTab;
+//import com.aden.yefikirketero.UI.tabFragments.postedTab.PostedProfilesTab;
 
 import java.util.ArrayList;
 import java.util.List;

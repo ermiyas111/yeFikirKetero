@@ -61,22 +61,22 @@ public class AskForPhone extends AppCompatActivity {
                     String parsedId = b.getString("currentId");
                     long parsedCard= Long.parseLong(hiddenNumber.getText().toString());
 
-                    PaymentUpload paymentUpload = new PaymentUpload(parsedPhone, parsedCard, "no", "get_phone_no", parsedId);
-                    Call<PaymentUpload> call = api.uploadPayment(paymentUpload);
-                    call.enqueue(new Callback<PaymentUpload>() {
-                        @Override
-                        public void onResponse(Call<PaymentUpload> call, Response<PaymentUpload> response) {
-                            Log.d("samuela", "success");
-                            //t1.setText("Success");
-                            //createPerson();
-                        }
-
-                        @Override
-                        public void onFailure(Call<PaymentUpload> call, Throwable t) {
-                            Log.d("samuela", "fail");
-                            //t1.setText("fail");
-                        }
-                    });
+//                    PaymentUpload paymentUpload = new PaymentUpload(parsedPhone, parsedCard, "no", "get_phone_no", parsedId);
+//                    Call<PaymentUpload> call = api.uploadPayment(paymentUpload);
+//                    call.enqueue(new Callback<PaymentUpload>() {
+//                        @Override
+//                        public void onResponse(Call<PaymentUpload> call, Response<PaymentUpload> response) {
+//                            Log.d("samuela", "success");
+//                            //t1.setText("Success");
+//                            //createPerson();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<PaymentUpload> call, Throwable t) {
+//                            Log.d("samuela", "fail");
+//                            //t1.setText("fail");
+//                        }
+//                    });
 
                     //call the next activity
                     Intent intent = new Intent(context, AcknowledgePhoneInput.class);

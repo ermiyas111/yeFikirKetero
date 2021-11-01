@@ -6,104 +6,251 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Post {
+    public Post(String success, ArrayList<UserData> data, int message) {
+        this.success = success;
+        this.data = data;
+        this.message = message;
 
-    public Post(String userId, String phoneNumber, String name, String age, String bio, String isProfilePosted, String registeringTime, String sessionId) {
-        this.userId = userId;
-        this.phoneNumber = phoneNumber;
-        this.name = name;
-        this.age = age;
-        this.bio = bio;
-        this.isProfilePosted = isProfilePosted;
-        this.registeringTime = registeringTime;
-        this.sessionId = sessionId;
     }
 
 
-    @SerializedName("_id")
-    private String userId;
+    @SerializedName("success")
+    private String success;
 
-    @SerializedName("phone_number")
-    private String phoneNumber;
+    @SerializedName("data")
+    private ArrayList<UserData> data;
 
-    @SerializedName("name")
-    private String name;
+    @SerializedName("message")
+    private int message;
 
-    @SerializedName("age")
-    private String age;
+    public class UserData {
 
-    @SerializedName("bio")
-    private String bio;
 
-    @SerializedName("is_profile_posted")
-    private String isProfilePosted;
+        public UserData(String userId, String name, int age, String gender, String phone, String address, String height, String religion, String Bio, String job, Preference preference) {
+            this.userId = userId;
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+            this.phone = phone;
+            this.address = address;
+            this.height = height;
+            this.religion = religion;
+            this.Bio = Bio;
+            this.job = job;
+            this.preference = preference;
 
-    @SerializedName("registering_time")
-    private String registeringTime;
+        }
 
-    @SerializedName("session_id")
-    private String sessionId;
 
-    public String getUserId() {
-        return userId;
+        @SerializedName("id")
+        private String userId;
+
+        @SerializedName("name")
+        private String name;
+
+        @SerializedName("age")
+        private int age;
+
+        @SerializedName("gender")
+        private String gender;
+
+        @SerializedName("phone")
+        private String phone;
+
+        @SerializedName("address")
+        private String address;
+
+        @SerializedName("height")
+        private String height;
+
+        @SerializedName("religion")
+        private String religion;
+
+        @SerializedName("Bio")
+        private String Bio;
+
+        @SerializedName("job")
+        private String job;
+
+        @SerializedName("preference")
+        private Preference preference;
+
+        public class Preference {
+
+            public Preference( String minAge, String maxAge, String Religion, String height, String job) {
+                this.minAge = minAge;
+                this.maxAge = maxAge;
+                this.Religion = Religion;
+                this.height = height;
+                this.job = job;
+            }
+
+            @SerializedName("minAge")
+            private String minAge;
+
+            @SerializedName("maxAge")
+            private String maxAge;
+
+            @SerializedName("Religion")
+            private String Religion;
+
+            @SerializedName("height")
+            private String height;
+
+            @SerializedName("job")
+            private String job;
+
+            public String getMinAge() {
+                return minAge;
+            }
+
+            public void setMinAge(String minAge) {
+                this.minAge = minAge;
+            }
+
+            public String getMaxAge() {
+                return maxAge;
+            }
+
+            public void setMaxAge(String maxAge) {
+                this.maxAge = maxAge;
+            }
+
+            public String getReligion() {
+                return Religion;
+            }
+
+            public void setReligion(String religion) {
+                Religion = religion;
+            }
+
+            public String getHeight() {
+                return height;
+            }
+
+            public void setHeight(String height) {
+                this.height = height;
+            }
+
+            public String getJob() {
+                return job;
+            }
+
+            public void setJob(String job) {
+                this.job = job;
+            }
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public String getGender() {
+            return gender;
+        }
+
+        public void setGender(String gender) {
+            this.gender = gender;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getHeight() {
+            return height;
+        }
+
+        public void setHeight(String height) {
+            this.height = height;
+        }
+
+        public String getReligion() {
+            return religion;
+        }
+
+        public void setReligion(String religion) {
+            this.religion = religion;
+        }
+
+        public String getBio() {
+            return Bio;
+        }
+
+        public void setBio(String bio) {
+            Bio = bio;
+        }
+
+        public String getJob() {
+            return job;
+        }
+
+        public void setJob(String job) {
+            this.job = job;
+        }
+
+        public Preference getPreference() {
+            return preference;
+        }
+
+        public void setPreference(Preference preference) {
+            this.preference = preference;
+        }
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public String getSuccess() {
+        return success;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setSuccess(String success) {
+        this.success = success;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public ArrayList<UserData> getData() {
+        return data;
     }
 
-    public String getName() {
-        return name;
+    public void setData(ArrayList<UserData> data) {
+        this.data = data;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getMessage() {
+        return message;
     }
 
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public String getIsProfilePosted() {
-        return isProfilePosted;
-    }
-
-    public void setIsProfilePosted(String isProfilePosted) {
-        this.isProfilePosted = isProfilePosted;
-    }
-
-    public String getRegisteringTime() {
-        return registeringTime;
-    }
-
-    public void setRegisteringTime(String registeringTime) {
-        this.registeringTime = registeringTime;
-    }
-
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setMessage(int message) {
+        this.message = message;
     }
 }

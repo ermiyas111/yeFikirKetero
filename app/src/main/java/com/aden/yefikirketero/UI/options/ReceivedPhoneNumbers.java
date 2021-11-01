@@ -4,8 +4,10 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +23,10 @@ import com.aden.yefikirketero.retrofit.YeFikirKeteroApi;
 import com.aden.yefikirketero.retrofit.model.Post;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +49,6 @@ public class ReceivedPhoneNumbers extends AppCompatActivity {
     PhoneListAdapter phoneListAdapter;
     YeFikirKeteroApi api;
     Context context = this;
-    LinearProgressIndicator progressIndicator;
 
     //use array list instead of String[]
     List<String> s1 = new ArrayList<>();
@@ -56,106 +60,19 @@ public class ReceivedPhoneNumbers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_received_phone_numbers);
 
-        progressIndicator = findViewById(R.id.progressIndicator);
         recyclerView = findViewById(R.id.recycler_view_phone_list);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        s1 = getArrayList("phoneList");
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         phoneListAdapter = new PhoneListAdapter(recyclerView, context, s1, s2, s3);
         recyclerView.setAdapter(phoneListAdapter);
-
-        //retrofit method call
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(YeFikirKeteroApi.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        api = retrofit.create(YeFikirKeteroApi.class);
-
-        //start the back and forth of two methods
-        fetchFromRetrofit();
     }
 
-    private void fetchFromRetrofit(){
-        Call<List<Post>> call = api.getPosts();
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                progressIndicator.setVisibility(GONE);
-
-                List<Post> posts = response.body();
-
-                int i =0;
-
-                for(Post p: posts){
-                    s1.add(p.getBio());
-                    s2.add(p.getPhoneNumber());
-                    s3.add(p.getUserId());
-                    Log.d("phoneNumber", p.getPhoneNumber());
-                    Log.d("name", p.getName());
-                    Log.d("age", p.getAge());
-                    i++;
-                }
-                phoneListAdapter.notifyDataSetChanged();
-                phoneListAdapter.setLoaded();
-
-                loadMoreListen();
-            }
-
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
-                progressIndicator.setVisibility(GONE);
-                MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(context)
-                        .setMessage(getResources().getString(R.string.connection_error));
-                materialAlertDialogBuilder.setNeutralButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        finish();
-                    }
-                });
-                materialAlertDialogBuilder.setPositiveButton(getResources().getString(R.string.retry), new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        progressIndicator.setVisibility(VISIBLE);
-                        fetchFromRetrofit();
-                    }
-                });
-                materialAlertDialogBuilder.setCancelable(false);
-                materialAlertDialogBuilder.show();
-            }
-        });
-    }
-
-    private void loadMoreListen(){
-
-        //built in methods
-        //postsAdapter.notifyDataSetChanged();
-
-        phoneListAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                if (s1.size() <= 28) {
-                    s1.add(null);
-                    phoneListAdapter.notifyItemInserted(s1.size() - 1);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            s1.remove(s1.size() - 1);
-                            phoneListAdapter.notifyItemRemoved(s1.size());
-
-                            //Generating more data
-                            fetchFromRetrofit();
-                        }
-                    }, 5000);
-                } else {
-                    Toast.makeText(context, "Loading data completed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    public ArrayList<String> getArrayList(String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Gson gson = new Gson();
+        String json = prefs.getString(key, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(json, type);
     }
 }

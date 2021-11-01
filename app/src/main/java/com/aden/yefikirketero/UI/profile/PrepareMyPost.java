@@ -2,12 +2,15 @@ package com.aden.yefikirketero.UI.profile;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.aden.yefikirketero.R;
 import com.aden.yefikirketero.UI.profile.preparePostTabFragments.AboutDateForm;
 import com.aden.yefikirketero.UI.profile.preparePostTabFragments.AboutYouForm;
 import com.aden.yefikirketero.UI.profile.preparePostTabFragments.PreparePostTabsAdapter;
-import com.aden.yefikirketero.UI.tabFragments.postedTab.PostedProfilesTab;
+//import com.aden.yefikirketero.UI.tabFragments.postedTab.PostedProfilesTab;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.Nullable;
@@ -53,6 +56,16 @@ public class PrepareMyPost extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
+        LinearLayout tabStrip = ((LinearLayout)tabLayout.getChildAt(0));
+        for(int i = 0; i < tabStrip.getChildCount(); i++) {
+            tabStrip.getChildAt(i).setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
+        }
     }
 
 }

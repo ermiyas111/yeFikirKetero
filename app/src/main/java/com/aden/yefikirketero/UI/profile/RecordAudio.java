@@ -231,22 +231,22 @@ public class RecordAudio extends AppCompatActivity {
                 String parsedPhoneString = phoneNumber.replaceAll("\\D+","");
                 long parsedPhone= Long.parseLong(parsedPhoneString);
 
-                PostUpload postUpload = new PostUpload(parsedPhone, myName, myAge, myBio, "no", 15, 950 );
-                Call<PostUpload> call = api.uploadPost(postUpload);
-                call.enqueue(new Callback<PostUpload>() {
-                    @Override
-                    public void onResponse(Call<PostUpload> call, Response<PostUpload> response) {
-                        Log.d("samuela", "success");
-                        //t1.setText("Success");
-                        //createPerson();
-                    }
-
-                    @Override
-                    public void onFailure(Call<PostUpload> call, Throwable t) {
-                        Log.d("samuela", "fail");
-                        //t1.setText("fail");
-                    }
-                });
+//                PostUpload postUpload = new PostUpload(parsedPhone, myName, myAge, myBio, "no", 15, 950 );
+//                Call<PostUpload> call = api.uploadPost(postUpload);
+//                call.enqueue(new Callback<PostUpload>() {
+//                    @Override
+//                    public void onResponse(Call<PostUpload> call, Response<PostUpload> response) {
+//                        Log.d("samuela", "success");
+//                        //t1.setText("Success");
+//                        //createPerson();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<PostUpload> call, Throwable t) {
+//                        Log.d("samuela", "fail");
+//                        //t1.setText("fail");
+//                    }
+//                });
 
                 //save that account is logged in
                 SharedPreferences sharedPreferences13 = context.getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
@@ -300,36 +300,36 @@ public class RecordAudio extends AppCompatActivity {
                         okhttp3.MultipartBody.FORM, descriptionString);
 
         // finally, execute the request
-        Call<ResponseBody> call = api.upload(description, body);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call,
-                                   Response<ResponseBody> response) {
-                Toast.makeText(context, "audio upload success", Toast.LENGTH_LONG).show();
-                Log.v("Upload", "success");
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(context, "audio upload error", Toast.LENGTH_LONG).show();
-                Log.e("Upload error:", t.getMessage());
-            }
-        });
+//        Call<ResponseBody> call = api.upload(description, body);
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call,
+//                                   Response<ResponseBody> response) {
+//                Toast.makeText(context, "audio upload success", Toast.LENGTH_LONG).show();
+//                Log.v("Upload", "success");
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Toast.makeText(context, "audio upload error", Toast.LENGTH_LONG).show();
+//                Log.e("Upload error:", t.getMessage());
+//            }
+//        });
     }
 
     private void createPerson(){
-        Call<List<Post>> call = api.getPosts();
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                Log.d("name", "jdkkld");
-            }
-
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Call<List<Post>> call = api.getPosts();
+//        call.enqueue(new Callback<List<Post>>() {
+//            @Override
+//            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+//                Log.d("name", "jdkkld");
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Post>> call, Throwable t) {
+//                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override
