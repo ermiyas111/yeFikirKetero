@@ -1,7 +1,6 @@
 package com.aden.yefikirketero.UI.getPhone;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,31 +9,22 @@ import android.widget.LinearLayout;
 
 import com.aden.yefikirketero.R;
 import com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment.ConfirmPayment;
-import com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment.InputPhone;
+import com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment.TurnOnAccessibility;
 import com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment.MakePayment;
 import com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment.PaymentTabsAdapter;
-import com.aden.yefikirketero.UI.profile.preparePostTabFragments.AboutDateForm;
-import com.aden.yefikirketero.UI.profile.preparePostTabFragments.AboutYouForm;
-import com.aden.yefikirketero.UI.profile.preparePostTabFragments.PreparePostTabsAdapter;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 
-
-import java.util.Arrays;
-import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
-import static android.view.View.VISIBLE;
 
 public class PaymentActivity extends AppCompatActivity {
 
     Context context = this;
     TabLayout tabLayout;
     ViewPager viewPager;
-    InputPhone inputPhone;
+    TurnOnAccessibility turnOnAccessibility;
     MakePayment makePayment;
     ConfirmPayment confirmPayment;
     String userPhoneNumber;
@@ -49,7 +39,7 @@ public class PaymentActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         phoneInput = findViewById(R.id.phone_edit_text);
 
-        inputPhone = new InputPhone();
+        turnOnAccessibility = new TurnOnAccessibility();
         makePayment = new MakePayment();
         confirmPayment = new ConfirmPayment();
 
@@ -57,7 +47,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         final PaymentTabsAdapter adapter = new PaymentTabsAdapter(this,getSupportFragmentManager(),
                 tabLayout.getTabCount());
-        adapter.addFragment(inputPhone,"አንድ");
+        adapter.addFragment(turnOnAccessibility,"አንድ");
         adapter.addFragment(makePayment, "ሁለት");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

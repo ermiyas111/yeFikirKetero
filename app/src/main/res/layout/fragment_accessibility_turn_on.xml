@@ -18,25 +18,29 @@
             android:paddingTop="100dp">
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/phone_text_input_layout"
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:strokeWidth="1dp"
+                app:cardElevation="8dp">
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/accesibility_toggle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:hint="@string/enter_phone"
-                    app:endIconMode="clear_text"
-                    app:prefixText="+251"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+                    android:layout_marginTop="25dp"
+                    android:textColor="@color/blackColor"
+                    android:text="@string/accessibility_service"
+                    android:textSize="17dp"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/phone_edit_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="phone"
-                        android:maxLength="30"
-                        android:maxLines="1" />
+            </com.google.android.material.card.MaterialCardView>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/accessibility_steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/themeColor"
+                    android:text="@string/show_steps"
+                    android:layout_marginBottom="25dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/next_button"
@@ -106,6 +110,8 @@
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+
 
         </LinearLayout>
     </ScrollView>

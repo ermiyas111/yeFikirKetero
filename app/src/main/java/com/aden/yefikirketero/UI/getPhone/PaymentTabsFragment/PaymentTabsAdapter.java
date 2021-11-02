@@ -1,10 +1,6 @@
 package com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment;
 
 import android.content.Context;
-import android.view.MotionEvent;
-
-import com.aden.yefikirketero.UI.profile.preparePostTabFragments.AboutDateForm;
-import com.aden.yefikirketero.UI.profile.preparePostTabFragments.AboutYouForm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +28,8 @@ public class PaymentTabsAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                InputPhone inputPhone = new InputPhone();
-                return inputPhone;
+                TurnOnAccessibility turnOnAccessibility = new TurnOnAccessibility();
+                return turnOnAccessibility;
             case 1:
                 MakePayment makePayment = new MakePayment();
                 return makePayment;

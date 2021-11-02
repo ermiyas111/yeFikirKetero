@@ -7,25 +7,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
 import com.aden.yefikirketero.R;
 import com.aden.yefikirketero.UI.getPhone.PaymentActivity;
-import com.aden.yefikirketero.UI.profile.preparePostTabFragments.AboutYouForm;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class InputPhone extends Fragment {
+public class TurnOnAccessibility extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,8 +30,8 @@ public class InputPhone extends Fragment {
     private String mParam2;
 
     MaterialButton nextButton;
-    TextInputEditText phoneEditText;
-    TextView telegramContact, phoneContact;
+    SwitchMaterial accessibilityToggle;
+    TextView showSteps, telegramContact, phoneContact;
 
     PaymentActivity paymentActivity = new PaymentActivity();
 
@@ -47,7 +41,7 @@ public class InputPhone extends Fragment {
     Context context;
 
 
-    public InputPhone() {
+    public TurnOnAccessibility() {
         // Required empty public constructor
     }
 
@@ -60,8 +54,8 @@ public class InputPhone extends Fragment {
      * @return A new instance of fragment Cricket.
      */
     // TODO: Rename and change types and number of parameters
-    public static InputPhone newInstance(String param1, String param2) {
-        InputPhone fragment = new InputPhone();
+    public static TurnOnAccessibility newInstance(String param1, String param2) {
+        TurnOnAccessibility fragment = new TurnOnAccessibility();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -82,7 +76,7 @@ public class InputPhone extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_input_phone, container, false);
+        return inflater.inflate(R.layout.fragment_accessibility_turn_on, container, false);
     }
 
     @Override
@@ -90,23 +84,18 @@ public class InputPhone extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         nextButton = view.findViewById(R.id.next_button);
-        phoneEditText= view.findViewById(R.id.phone_edit_text);
+        accessibilityToggle = view.findViewById(R.id.accesibility_toggle);
+        showSteps= view.findViewById(R.id.accessibility_steps);
         telegramContact= view.findViewById(R.id.telegram_contact);
         phoneContact= view.findViewById(R.id.phone_contact);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boolean isValid = true;
-                if(phoneEditText.getText().toString().isEmpty()) {
-                    phoneEditText.setError(getResources().getString(R.string.name_validation_error));
-                    isValid = false;
-                } else {
-                    phoneEditText.setError(null); // Clear the error
-                }
 
                 if(isValid){
                     //set phone number
-                    paymentActivity.setUserPhoneNumber(phoneEditText.getText().toString());
+//                    paymentActivity.setUserPhoneNumber(phoneEditText.getText().toString());
 
                     //navigate to next fragment
                     TabLayout tabs = getActivity().findViewById(R.id.tabLayout);

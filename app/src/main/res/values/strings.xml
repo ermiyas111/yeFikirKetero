@@ -105,6 +105,8 @@
     <string name="step_two">Step 2 - </string>
     <string name="step_three">Step 3 - </string>
     <string name="enter_phone">ስልክዎን ያስገቡ</string>
+    <string name="accessibility_service">Accessibility Service</string>
+    <string name="show_steps"><u>እንዴት ላብራ?</u></string>
     <string name="transfer_text">ከስልክዎ 50 ብር ያስተላልፉ</string>
     <string name="send_money">አስተላልፍ</string>
     <string name="confirm_payment">ክፍያውን አረጋግጥ</string>
