@@ -76,11 +76,8 @@ public class LauncherActivity extends AppCompatActivity {
     List<String> age = new ArrayList<>();
     List<String> gender = new ArrayList<>();
     List<String> phone = new ArrayList<>();
-    List<String> address = new ArrayList<>();
-    List<String> height = new ArrayList<>();
-    List<String> religion = new ArrayList<>();
     List<String> bio = new ArrayList<>();
-    List<String> job = new ArrayList<>();
+    List<String> isProfilePosted = new ArrayList<>();
     List<String> dateMinAge = new ArrayList<>();
     List<String> dateMaxAge = new ArrayList<>();
     List<String> dateReligion = new ArrayList<>();
@@ -137,7 +134,7 @@ public class LauncherActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        postsAdapter = new PostsAdapter(recyclerView, context, userId, name, age, gender, phone, address, height, religion, bio, job, dateMinAge, dateMaxAge, dateReligion, dateHeight, dateJob);
+        postsAdapter = new PostsAdapter(recyclerView, context, userId, name, age, gender, phone, bio, isProfilePosted, dateMinAge, dateMaxAge, dateReligion, dateHeight, dateJob);
         recyclerView.setAdapter(postsAdapter);
 
         myFab = findViewById(R.id.fab);
@@ -282,33 +279,25 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     private void fetchFromRetrofit(){
-        Call<Post> call = api.getPosts();
-        call.enqueue(new Callback<Post>() {
+        Call<List<Post>> call = api.getPosts();
+        call.enqueue(new Callback<List<Post>>() {
             @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                 progressIndicator.setVisibility(GONE);
                 myFab.setVisibility(VISIBLE);
 
-                Post posts = response.body();
+                List<Post> posts = response.body();
 
                 int i =0;
 
-                for(Post.UserData p: posts.getData()){
+                for(Post p: posts){
                     userId.add(p.getUserId());
                     name.add(p.getName());
                     age.add(String.valueOf(p.getAge()));
                     gender.add(p.getGender());
                     phone.add(p.getPhone());
-                    address.add(p.getAddress());
-                    religion.add(p.getReligion());
-                    height.add(p.getHeight());
                     bio.add(p.getBio());
-                    job.add(p.getJob());
-                    dateMinAge.add(p.getPreference().getMinAge());
-                    dateMaxAge.add(p.getPreference().getMaxAge());
-                    dateReligion.add(p.getPreference().getReligion());
-                    dateHeight.add(p.getPreference().getHeight());
-                    dateJob.add(p.getPreference().getJob());
+                    isProfilePosted.add(p.getIs_profile_posted());
 
 //                    Log.d("phoneNumber", p.getPhone());
                     Log.d("name", p.getName());
@@ -329,7 +318,7 @@ public class LauncherActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Post> call, Throwable t) {
+            public void onFailure(Call<List<Post>> call, Throwable t) {
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
                 progressIndicator.setVisibility(GONE);
                 MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(context)

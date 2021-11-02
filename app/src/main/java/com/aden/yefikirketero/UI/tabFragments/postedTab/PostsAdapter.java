@@ -31,11 +31,8 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     List<String> age = new ArrayList<>();
     List<String> gender = new ArrayList<>();
     List<String> phone = new ArrayList<>();
-    List<String> address = new ArrayList<>();
-    List<String> height = new ArrayList<>();
-    List<String> religion = new ArrayList<>();
     List<String> bio = new ArrayList<>();
-    List<String> job = new ArrayList<>();
+    List<String> isProfilePosted = new ArrayList<>();
     List<String> dateMinAge = new ArrayList<>();
     List<String> dateMaxAge = new ArrayList<>();
     List<String> dateReligion = new ArrayList<>();
@@ -51,18 +48,15 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
 
-    public PostsAdapter(RecyclerView recyclerView, Context context,  List<String> userId, List<String> name, List<String> age, List<String> gender, List<String> phone, List<String> address, List<String> height,List<String> religion, List<String> bio, List<String> job, List<String> dateMinAge, List<String> dateMaxAge, List<String> dateReligion, List<String> dateHeight, List<String> dateJob) {
+    public PostsAdapter(RecyclerView recyclerView, Context context,  List<String> userId, List<String> name, List<String> age, List<String> gender, List<String> phone, List<String> bio, List<String> isProfilePosted, List<String> dateMinAge, List<String> dateMaxAge, List<String> dateReligion, List<String> dateHeight, List<String> dateJob) {
         ct = context;
         this.userId = userId;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.phone = phone;
-        this.address = address;
-        this.religion = religion;
-        this.height = height;
         this.bio = bio;
-        this.job = job;
+        this.isProfilePosted = isProfilePosted;
         this.dateMinAge = dateMinAge;
         this.dateMaxAge = dateMaxAge;
         this.dateReligion = dateReligion;
@@ -124,44 +118,35 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if(phone.get(position) != null && !phone.get(position).equals("")){
                 myInfo = myInfo + "\n" + ct.getResources().getString(R.string.phone_label)+ " " + phone.get(position);
             }
-            if(address.get(position) != null && !address.get(position).equals("")){
-                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.address_label)+ " " + address.get(position);
-            }
-            if(height.get(position) != null && !height.get(position).equals("")){
-                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.height_label)+ " " + height.get(position);
-            }
-            if(religion.get(position) != null && !religion.get(position).equals("")){
-                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.religion_label)+ " " + religion.get(position);
-            }
-            if(job.get(position) != null && !job.get(position).equals("")){
-                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.job_label)+ " " + job.get(position);
+            if(isProfilePosted.get(position) != null && !isProfilePosted.get(position).equals("")){
+                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.isProfilePosted_label)+ " " + isProfilePosted.get(position);
             }
 
-            String dateInfo = "";
-            if(dateMinAge.get(position) != null && !dateMinAge.get(position).equals("")){
-                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_min_age_label)+ " " + dateMinAge.get(position);
-            }
-            if(dateMaxAge.get(position) != null && !dateMaxAge.get(position).equals("")){
-                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_max_age_label)+ " " + dateMaxAge.get(position);
-            }
-            if(dateHeight.get(position) != null && !dateHeight.get(position).equals("")){
-                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_height_label)+ " " + dateHeight.get(position);
-            }
-            if(dateReligion.get(position) != null && !dateReligion.get(position).equals("")){
-                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_religion_label)+ " " + dateReligion.get(position);
-            }
-            if(dateJob.get(position) != null && !dateJob.get(position).equals("")){
-                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_job_label)+ " " + dateJob.get(position);
-            }
-            if(bio.get(position) != null && !bio.get(position).equals("")){
-                dateInfo = dateInfo + "\n\n" + bio.get(position);
-            }
+//            String dateInfo = "";
+//            if(dateMinAge.get(position) != null && !dateMinAge.get(position).equals("")){
+//                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_min_age_label)+ " " + dateMinAge.get(position);
+//            }
+//            if(dateMaxAge.get(position) != null && !dateMaxAge.get(position).equals("")){
+//                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_max_age_label)+ " " + dateMaxAge.get(position);
+//            }
+//            if(dateHeight.get(position) != null && !dateHeight.get(position).equals("")){
+//                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_height_label)+ " " + dateHeight.get(position);
+//            }
+//            if(dateReligion.get(position) != null && !dateReligion.get(position).equals("")){
+//                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_religion_label)+ " " + dateReligion.get(position);
+//            }
+//            if(dateJob.get(position) != null && !dateJob.get(position).equals("")){
+//                dateInfo = dateInfo + "\n" + ct.getResources().getString(R.string.date_job_label)+ " " + dateJob.get(position);
+//            }
+//            if(bio.get(position) != null && !bio.get(position).equals("")){
+//                dateInfo = dateInfo + "\n\n" + bio.get(position);
+//            }
+//
+//            if(!dateInfo.equals("")){
+//                dateInfo = "\n\n" + ct.getResources().getString(R.string.your_date_info_label) + dateInfo;
+//            }
 
-            if(!dateInfo.equals("")){
-                dateInfo = "\n\n" + ct.getResources().getString(R.string.your_date_info_label) + dateInfo;
-            }
-
-            post = post + myInfo + dateInfo;
+            post = post + myInfo;
 
 
             myViewHolder.myText1.setText(post);

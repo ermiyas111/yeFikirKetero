@@ -128,6 +128,7 @@
     <string name="address_label">አድራሻ፡</string>
     <string name="height_label">ቁመት፡</string>
     <string name="religion_label">ሃይማኖት፡</string>
+    <string name="isProfilePosted_label">ተለጥፏል፡</string>
     <string name="job_label">ስራ፡</string>
     <string name="your_date_info_label">የምፈልገው ጓደኛ</string>
     <string name="date_min_age_label">ዕድሜ ከ </string>
