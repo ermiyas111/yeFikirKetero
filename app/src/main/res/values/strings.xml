@@ -110,7 +110,9 @@
     <string name="transfer_text">ከስልክዎ 50 ብር ያስተላልፉ</string>
     <string name="send_money">አስተላልፍ</string>
     <string name="confirm_payment">ክፍያውን አረጋግጥ</string>
-    <string name="transfer_command">*804</string>
+    <string name="transfer_command">*806*0944286051*50</string>
+    <string name="payment_completed">ክፍያው ተጠናቋል</string>
+    <string name="the_phone_number">ስልክ ቁጥሩ፡ 0904132755</string>
 
     <string name="for_more_explanation">ለበለጠ ማብራሪያ፡</string>
     <string name="telegram">"telegram: "</string>

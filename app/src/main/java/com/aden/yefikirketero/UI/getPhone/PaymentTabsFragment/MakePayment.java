@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.aden.yefikirketero.R;
 import com.aden.yefikirketero.UI.profile.preparePostTabFragments.AboutYouForm;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -38,8 +42,10 @@ public class MakePayment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    MaterialButton sendMoneyButton, confirmPayment;
+    MaterialButton sendMoneyButton;
     TextView telegramContact, phoneContact;
+    static boolean showPhoneDialog = false;
+
 
 
     int oneRoundItems = 0;
@@ -79,6 +85,18 @@ public class MakePayment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if(showPhoneDialog){
+            AlertDialog alertDialog = new MaterialAlertDialogBuilder(getActivity())
+                    .setTitle(getResources().getString(R.string.payment_completed))
+                    .setMessage(getResources().getString(R.string.the_phone_number))
+                    .setPositiveButton("Ok", null)
+                    .show();
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -90,22 +108,27 @@ public class MakePayment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sendMoneyButton = view.findViewById(R.id.send_money_button);
-        confirmPayment = view.findViewById(R.id.confirm_payment);
         telegramContact= view.findViewById(R.id.telegram_contact);
         phoneContact= view.findViewById(R.id.phone_contact);
 
         sendMoneyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (checkCallingPermission()) {
-                    startActivity(new Intent("android.intent.action.CALL",
-                            Uri.parse("tel:" + getResources().getString(R.string.transfer_command) + Uri.encode("#"))));
-                    confirmPayment.setVisibility(View.VISIBLE);
+                int accessibilityEnabled = 0;
+                try {
+                    accessibilityEnabled = Settings.Secure.getInt(getActivity().getContentResolver(),android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+                    if(accessibilityEnabled == 0) {
+                        //navigate to next fragment
+                        TabLayout tabs = getActivity().findViewById(R.id.tabLayout);
+                        tabs.getTabAt(0).select();
+                    } else{
+                        if (checkCallingPermission()) {
+                            startActivity(new Intent("android.intent.action.CALL",
+                                    Uri.parse("tel:" + getResources().getString(R.string.transfer_command) + Uri.encode("#"))));
+                        }
+                    }
+                } catch (Settings.SettingNotFoundException e) {
+                    Log.d("LOGTAG", "Error finding setting, default accessibility to not found: " + e.getMessage());
                 }
-            }
-        });
-
-        confirmPayment.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
             }
         });
 
@@ -137,4 +160,7 @@ public class MakePayment extends Fragment {
     }
 
 
+    public static void setShowPhoneDialog(boolean showPhoneDialogParam) {
+        showPhoneDialog = showPhoneDialogParam;
+    }
 }
