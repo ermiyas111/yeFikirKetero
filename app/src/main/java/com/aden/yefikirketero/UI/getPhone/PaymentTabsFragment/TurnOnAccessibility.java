@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +14,13 @@ import android.widget.TextView;
 import com.aden.yefikirketero.R;
 import com.aden.yefikirketero.UI.getPhone.PaymentActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 public class TurnOnAccessibility extends Fragment {
@@ -73,6 +77,18 @@ public class TurnOnAccessibility extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        int accessibilityEnabled = 0;
+        try {
+            accessibilityEnabled = Settings.Secure.getInt(getActivity().getContentResolver(),android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+            accessibilityToggle.setChecked((accessibilityEnabled == 0)? false : true);
+        } catch (Settings.SettingNotFoundException e) {
+            Log.d("LOGTAG", "Error finding setting, default accessibility to not found: " + e.getMessage());
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -89,17 +105,34 @@ public class TurnOnAccessibility extends Fragment {
         telegramContact= view.findViewById(R.id.telegram_contact);
         phoneContact= view.findViewById(R.id.phone_contact);
 
+        accessibilityToggle.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                startActivity(intent);
+            }
+        });
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boolean isValid = true;
 
                 if(isValid){
-                    //set phone number
-//                    paymentActivity.setUserPhoneNumber(phoneEditText.getText().toString());
-
-                    //navigate to next fragment
-                    TabLayout tabs = getActivity().findViewById(R.id.tabLayout);
-                    tabs.getTabAt(1).select();
+                    int accessibilityEnabled = 0;
+                    try {
+                        accessibilityEnabled = Settings.Secure.getInt(getActivity().getContentResolver(),android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
+                        if(accessibilityEnabled == 0) {
+                            AlertDialog alertDialog = new MaterialAlertDialogBuilder(getActivity())
+                                    .setMessage(getResources().getString(R.string.turn_on_accessibility))
+                                    .setPositiveButton("Ok", null)
+                                    .show();
+                        } else{
+                            //navigate to next fragment
+                            TabLayout tabs = getActivity().findViewById(R.id.tabLayout);
+                            tabs.getTabAt(1).select();
+                        }
+                    } catch (Settings.SettingNotFoundException e) {
+                        Log.d("LOGTAG", "Error finding setting, default accessibility to not found: " + e.getMessage());
+                    }
                 }
             }
         });
