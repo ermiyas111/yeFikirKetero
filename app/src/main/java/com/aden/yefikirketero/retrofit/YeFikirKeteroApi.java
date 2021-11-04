@@ -5,6 +5,7 @@ import com.aden.yefikirketero.retrofit.model.Person;
 import com.aden.yefikirketero.retrofit.model.PhoneNotifications;
 import com.aden.yefikirketero.retrofit.model.Post;
 import com.aden.yefikirketero.retrofit.model.PostUpload;
+import com.aden.yefikirketero.retrofit.model.PostWrapper;
 
 import java.util.List;
 import java.util.Map;
@@ -27,13 +28,14 @@ import retrofit2.http.Query;
 public interface YeFikirKeteroApi {
 
     //"http://192.168.43.226:3000";
-    String BASE_URL = "https://fikirketeronodejs.herokuapp.com/";
+//    String BASE_URL = "https://fikirketeronodejs.herokuapp.com/";
+    String BASE_URL = "https://fikirketeroapinodejs.herokuapp.com/";
 //    String BASE_URL = "https://pacific-citadel-12282.herokuapp.com/";
 
 
     @Headers("Content-Type: application/json")
     @GET("posts")
-    Call<List<Post>> getPosts();
+    Call<PostWrapper> getPosts();
 
     @POST("users")
     Call<Post> uploadPost(

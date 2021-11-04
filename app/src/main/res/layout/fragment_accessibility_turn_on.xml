@@ -38,6 +38,8 @@
                     android:id="@+id/accessibility_steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:clickable="true"
                     android:textColor="@color/themeColor"
                     android:text="@string/show_steps"
                     android:layout_marginBottom="25dp" />

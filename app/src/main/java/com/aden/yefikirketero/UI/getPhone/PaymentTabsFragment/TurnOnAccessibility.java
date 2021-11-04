@@ -1,6 +1,7 @@
 package com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -111,6 +112,33 @@ public class TurnOnAccessibility extends Fragment {
                 startActivity(intent);
             }
         });
+
+        showSteps.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new MaterialAlertDialogBuilder(getActivity())
+                    .setTitle("How to turn on accessibility service?")
+                    .setMessage("1. Go to settings>accessiblity.\n" +
+                            "2. Click on 'installed services'.\n" +
+                            "3. From the list of apps click on 'የፍቅር ቀጠሮ'\n" +
+                            "4. Turn on the switch."
+                    );
+                builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton(getResources().getString(R.string.go_to_settings), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                        startActivity(intent);
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
+
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

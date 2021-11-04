@@ -29,6 +29,7 @@
     <string name="cancel">Cancel</string>
     <string name="connection_error">Connection error</string>
     <string name="retry">Retry</string>
+    <string name="copy_phone">Copy Phone</string>
 
     <string name="back">ተመለስ</string>
     <string name="finish_button">ጨርስ</string>
@@ -110,9 +111,9 @@
     <string name="transfer_text">ከስልክዎ 50 ብር ያስተላልፉ</string>
     <string name="send_money">አስተላልፍ</string>
     <string name="confirm_payment">ክፍያውን አረጋግጥ</string>
-    <string name="transfer_command">*806*0944286051*50</string>
+    <string name="transfer_command">*806*0944286051*1</string>
     <string name="payment_completed">ክፍያው ተጠናቋል</string>
-    <string name="the_phone_number">ስልክ ቁጥሩ፡ 0904132755</string>
+    <string name="the_phone_number">ስልክ ቁጥሩ፡ </string>
 
     <string name="for_more_explanation">ለበለጠ ማብራሪያ፡</string>
     <string name="telegram">"telegram: "</string>
@@ -134,7 +135,8 @@
     <string name="religion_label">ሃይማኖት፡</string>
     <string name="isProfilePosted_label">ተለጥፏል፡</string>
     <string name="job_label">ስራ፡</string>
-    <string name="your_date_info_label">የምፈልገው ጓደኛ</string>
+    <string name="bio_label">ስለእኔ፡</string>
+    <string name="your_date_info_label"><b>የምፈልገው ጓደኛ</b></string>
     <string name="date_min_age_label">ዕድሜ ከ </string>
     <string name="date_max_age_label">እስከ</string>
     <string name="date_height_label">ቁመት፡</string>

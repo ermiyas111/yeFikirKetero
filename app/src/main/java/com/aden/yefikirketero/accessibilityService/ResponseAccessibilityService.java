@@ -26,7 +26,7 @@ public class ResponseAccessibilityService extends AccessibilityService {
 
         if (event.getPackageName().toString().contains("com.android.phone")
                 && event.getClassName().toString().toLowerCase()
-                .contains("alert")) {//make sure same message isn't sent twice and the e
+                .contains("alert") && MakePayment.isAccessibilityPortalOpen()) {//make sure same message isn't sent twice and the e
             if (USSDText.contains("Birr will be transferred to 0944286051")) {
                 AccessibilityNodeInfo source = event.getSource();
                 if (source != null) {
@@ -47,8 +47,7 @@ public class ResponseAccessibilityService extends AccessibilityService {
                 AccessibilityNodeInfo source = event.getSource();
                 if (source != null) {
                     //turn on show dialog
-                    MakePayment makePayment = new MakePayment();
-                    makePayment.setShowPhoneDialog(true);
+                    MakePayment.setShowPhoneDialog(true);
 
                     //"Click" the Send button
                     List<AccessibilityNodeInfo> list = source.findAccessibilityNodeInfosByText("OK");
@@ -56,6 +55,8 @@ public class ResponseAccessibilityService extends AccessibilityService {
                         node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
                     }
                 }
+            } else {
+                MakePayment.setAccessibilityPortalOpen(false);
             }
         }
     }

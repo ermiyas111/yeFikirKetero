@@ -1,11 +1,16 @@
 package com.aden.yefikirketero.UI.getPhone.PaymentTabsFragment;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aden.yefikirketero.R;
 import com.aden.yefikirketero.UI.profile.preparePostTabFragments.AboutYouForm;
@@ -22,7 +28,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -31,6 +40,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class MakePayment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +56,10 @@ public class MakePayment extends Fragment {
     MaterialButton sendMoneyButton;
     TextView telegramContact, phoneContact;
     static boolean showPhoneDialog = false;
+    static boolean accessibilityPortalOpen = false;
+
+    private ClipboardManager myClipboard;
+    private ClipData myClip;
 
 
 
@@ -87,12 +102,42 @@ public class MakePayment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(showPhoneDialog){
-            AlertDialog alertDialog = new MaterialAlertDialogBuilder(getActivity())
+        Intent intent = getActivity().getIntent();
+        Bundle b = intent.getExtras();
+
+        if (showPhoneDialog) {
+            AlertDialog.Builder builder = new MaterialAlertDialogBuilder(getActivity())
                     .setTitle(getResources().getString(R.string.payment_completed))
-                    .setMessage(getResources().getString(R.string.the_phone_number))
-                    .setPositiveButton("Ok", null)
-                    .show();
+                    .setMessage(getResources().getString(R.string.the_phone_number) + " " + b.getString("currentPhone"));
+
+            builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.setPositiveButton(getResources().getString(R.string.copy_phone), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    myClipboard = (ClipboardManager) getActivity().getSystemService(CLIPBOARD_SERVICE);
+                    String text = b.getString("currentPhone");
+
+                    myClip = ClipData.newPlainText("text", text);
+                    myClipboard.setPrimaryClip(myClip);
+
+                    Toast.makeText(getActivity(), "Phone Copied",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+
+            ArrayList<String> phoneList = getArrayList("phoneList");
+
+            if(phoneList == null){
+                phoneList = new ArrayList<>();
+            }
+            phoneList.add(b.getString("currentPhone"));
+            saveArrayList(phoneList, "phoneList");
+            showPhoneDialog = false;
         }
     }
 
@@ -122,6 +167,7 @@ public class MakePayment extends Fragment {
                         tabs.getTabAt(0).select();
                     } else{
                         if (checkCallingPermission()) {
+                            accessibilityPortalOpen = true;
                             startActivity(new Intent("android.intent.action.CALL",
                                     Uri.parse("tel:" + getResources().getString(R.string.transfer_command) + Uri.encode("#"))));
                         }
@@ -162,5 +208,30 @@ public class MakePayment extends Fragment {
 
     public static void setShowPhoneDialog(boolean showPhoneDialogParam) {
         showPhoneDialog = showPhoneDialogParam;
+    }
+
+    public static boolean isAccessibilityPortalOpen() {
+        return accessibilityPortalOpen;
+    }
+
+    public static void setAccessibilityPortalOpen(boolean accessibilityPortalOpen) {
+        MakePayment.accessibilityPortalOpen = accessibilityPortalOpen;
+    }
+
+    public void saveArrayList(ArrayList<String> list, String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.apply();
+    }
+
+    public ArrayList<String> getArrayList(String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        Gson gson = new Gson();
+        String json = prefs.getString(key, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(json, type);
     }
 }

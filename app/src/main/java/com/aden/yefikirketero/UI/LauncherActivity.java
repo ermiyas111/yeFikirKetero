@@ -29,6 +29,7 @@ import com.aden.yefikirketero.UI.profile.ShowTheWayToProfile;
 import com.aden.yefikirketero.UI.tabFragments.postedTab.PostsAdapter;
 import com.aden.yefikirketero.retrofit.YeFikirKeteroApi;
 import com.aden.yefikirketero.retrofit.model.Post;
+import com.aden.yefikirketero.retrofit.model.PostWrapper;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -76,8 +77,11 @@ public class LauncherActivity extends AppCompatActivity {
     List<String> age = new ArrayList<>();
     List<String> gender = new ArrayList<>();
     List<String> phone = new ArrayList<>();
+    List<String> address = new ArrayList<>();
+    List<String> religion = new ArrayList<>();
+    List<String> height = new ArrayList<>();
+    List<String> job = new ArrayList<>();
     List<String> bio = new ArrayList<>();
-    List<String> isProfilePosted = new ArrayList<>();
     List<String> dateMinAge = new ArrayList<>();
     List<String> dateMaxAge = new ArrayList<>();
     List<String> dateReligion = new ArrayList<>();
@@ -134,7 +138,7 @@ public class LauncherActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        postsAdapter = new PostsAdapter(recyclerView, context, userId, name, age, gender, phone, bio, isProfilePosted, dateMinAge, dateMaxAge, dateReligion, dateHeight, dateJob);
+        postsAdapter = new PostsAdapter(recyclerView, context, userId, name, age, gender, phone, address, religion, height, job, bio, dateMinAge, dateMaxAge, dateReligion, dateHeight, dateJob);
         recyclerView.setAdapter(postsAdapter);
 
         myFab = findViewById(R.id.fab);
@@ -279,14 +283,15 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     private void fetchFromRetrofit(){
-        Call<List<Post>> call = api.getPosts();
-        call.enqueue(new Callback<List<Post>>() {
+        Call<PostWrapper> call = api.getPosts();
+        call.enqueue(new Callback<PostWrapper>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+            public void onResponse(Call<PostWrapper> call, Response<PostWrapper> response) {
                 progressIndicator.setVisibility(GONE);
                 myFab.setVisibility(VISIBLE);
 
-                List<Post> posts = response.body();
+                PostWrapper postWrapper = response.body();
+                List<Post> posts = postWrapper != null? postWrapper.getData(): null;
 
                 int i =0;
 
@@ -296,6 +301,17 @@ public class LauncherActivity extends AppCompatActivity {
                     age.add(String.valueOf((p.getMyInfo() != null)? p.getMyInfo().getAge(): null));
                     gender.add((p.getMyInfo() != null)? p.getMyInfo().getGender(): null);
                     phone.add((p.getMyInfo() != null)? p.getMyInfo().getPhoneNumber(): null);
+                    address.add((p.getMyInfo() != null)? p.getMyInfo().getAddress(): null);
+                    religion.add((p.getMyInfo() != null)? p.getMyInfo().getReligion(): null);
+                    height.add((p.getMyInfo() != null)? p.getMyInfo().getHeight(): null);
+                    job.add((p.getMyInfo() != null)? p.getMyInfo().getJob(): null);
+                    bio.add((p.getMyInfo() != null)? p.getMyInfo().getBio(): null);
+
+                    dateMinAge.add(String.valueOf((p.getPreferenceInfo() != null)? p.getPreferenceInfo().getAgeStart(): null));
+                    dateMaxAge.add(String.valueOf((p.getPreferenceInfo() != null)? p.getPreferenceInfo().getAgeEnd(): null));
+                    dateReligion.add((p.getPreferenceInfo() != null)? p.getPreferenceInfo().getReligion(): null);
+                    dateHeight.add((p.getPreferenceInfo() != null)? p.getPreferenceInfo().getHeight(): null);
+                    dateJob.add((p.getPreferenceInfo() != null)? p.getPreferenceInfo().getJob(): null);
 
 //                    Log.d("phoneNumber", p.getPhone());
                     Log.d("name", (p.getMyInfo() != null)? p.getMyInfo().getName(): "null");
@@ -316,7 +332,7 @@ public class LauncherActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
+            public void onFailure(Call<PostWrapper> call, Throwable t) {
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
                 progressIndicator.setVisibility(GONE);
                 MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(context)
