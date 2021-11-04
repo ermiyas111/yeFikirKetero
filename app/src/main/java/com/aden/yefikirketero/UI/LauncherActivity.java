@@ -292,15 +292,13 @@ public class LauncherActivity extends AppCompatActivity {
 
                 for(Post p: posts){
                     userId.add(p.getUserId());
-                    name.add(p.getName());
-                    age.add(String.valueOf(p.getAge()));
-                    gender.add(p.getGender());
-                    phone.add(p.getPhone());
-                    bio.add(p.getBio());
-                    isProfilePosted.add(p.getIs_profile_posted());
+                    name.add((p.getMyInfo() != null)? p.getMyInfo().getName(): null);
+                    age.add(String.valueOf((p.getMyInfo() != null)? p.getMyInfo().getAge(): null));
+                    gender.add((p.getMyInfo() != null)? p.getMyInfo().getGender(): null);
+                    phone.add((p.getMyInfo() != null)? p.getMyInfo().getPhoneNumber(): null);
 
 //                    Log.d("phoneNumber", p.getPhone());
-                    Log.d("name", p.getName());
+                    Log.d("name", (p.getMyInfo() != null)? p.getMyInfo().getName(): "null");
 //                    Log.d("age", p.getAge());
                     i++;
                 }

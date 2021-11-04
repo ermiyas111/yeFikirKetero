@@ -65,7 +65,7 @@ public class AboutYouForm extends Fragment {
     ArrayAdapter<String> heightAdapter;
 
     MaterialButton cancelButton, nextButton;
-    TextInputEditText nameEditText, ageEditText, phoneEditText, locationEditText, jobEditText;
+    TextInputEditText nameEditText, ageEditText, phoneEditText, locationEditText, jobEditText, bioEditText;
 
 
     int oneRoundItems = 0;
@@ -123,6 +123,7 @@ public class AboutYouForm extends Fragment {
         phoneEditText= view.findViewById(R.id.phone_edit_text);
         locationEditText= view.findViewById(R.id.location_edit_text);
         jobEditText= view.findViewById(R.id.job_edit_text);
+        bioEditText= view.findViewById(R.id.bio_edit_text);
 
         genderTextInput = view.findViewById(R.id.gender_text_input);
         genderAutocomplete = view.findViewById(R.id.gender_autocomplete);
@@ -199,8 +200,9 @@ public class AboutYouForm extends Fragment {
                     aboutYouData.add(locationEditText.getText().toString());
                     aboutYouData.add(heightAutocomplete.getText().toString());
                     aboutYouData.add(religionAutocomplete.getText().toString());
-                    aboutYouData.add("");
+//                    aboutYouData.add("");
                     aboutYouData.add(jobEditText.getText().toString());
+                    aboutYouData.add(bioEditText.getText().toString());
                     saveArrayList(aboutYouData, "aboutYou");
                     TabLayout tabs = getActivity().findViewById(R.id.tabLayout);
                     tabs.getTabAt(1).select();

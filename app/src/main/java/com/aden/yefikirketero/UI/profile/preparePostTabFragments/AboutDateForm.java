@@ -200,27 +200,36 @@ public class AboutDateForm extends Fragment {
     private void postUserData(){
         Intent intent = new Intent(getActivity(), LauncherActivity.class);
         //Intent intent = new Intent(context, RecordAudio.class);
-        startActivity(intent);
-        PostUpload.Preference preference = new PostUpload.Preference(
-                ageEditTextFrom.getText().toString(),
-                ageEditTextTo.getText().toString(),
-                religionAutocomplete.getText().toString(),
-                heightAutocomplete.getText().toString(),
-                jobEditText.getText().toString()
-        );
         ArrayList<String> aboutYou = new ArrayList<>();
         aboutYou = getArrayList("aboutYou");
-        PostUpload postUpload = new PostUpload(aboutYou.get(0), Integer.valueOf(aboutYou.get(1)), aboutYou.get(2), aboutYou.get(3), aboutYou.get(4), aboutYou.get(5), aboutYou.get(6), aboutYou.get(7), aboutYou.get(8), preference);
-        Call<PostUpload> call = api.uploadPost(postUpload);
-        call.enqueue(new Callback<PostUpload>() {
+        startActivity(intent);
+        Post post = new Post(
+                aboutYou.get(0),
+                Integer.valueOf(aboutYou.get(1)),
+                aboutYou.get(2),
+                aboutYou.get(3),
+                aboutYou.get(4),
+                aboutYou.get(5),
+                aboutYou.get(6),
+                aboutYou.get(7),
+                aboutYou.get(8),
+                Integer.valueOf(ageEditTextFrom.getText().toString()),
+                Integer.valueOf(ageEditTextTo.getText().toString()),
+                religionAutocomplete.getText().toString(),
+                heightAutocomplete.getText().toString(),
+                jobEditText.getText().toString(),
+                null
+        );
+        Call<Post> call = api.uploadPost(post);
+        call.enqueue(new Callback<Post>() {
             @Override
-            public void onResponse(Call<PostUpload> call, Response<PostUpload> response) {
+            public void onResponse(Call<Post> call, Response<Post> response) {
                 Toast.makeText(getActivity(),"You have successfully posted your profile",Toast.LENGTH_LONG).show();
 
             }
 
             @Override
-            public void onFailure(Call<PostUpload> call, Throwable t) {
+            public void onFailure(Call<Post> call, Throwable t) {
                 Toast.makeText(getActivity(),"Posting profile unsuccessful",Toast.LENGTH_LONG).show();
             }
         });

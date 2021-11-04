@@ -35,6 +35,11 @@ public interface YeFikirKeteroApi {
     @GET("posts")
     Call<List<Post>> getPosts();
 
+    @POST("users")
+    Call<Post> uploadPost(
+            @Body Post post
+    );
+
     @Headers("Content-Type: application/json")
     @GET("get_phone_notifications/251904132755/{limit}")
     Call<List<Person>> getPhoneNotifications(
@@ -45,11 +50,6 @@ public interface YeFikirKeteroApi {
     @GET("received_requests/251904132755/{limit}")
     Call<List<Person>> getReceivedRequests(
             @Path("limit") int calculatedLimit
-    );
-
-    @POST("users")
-    Call<PostUpload> uploadPost(
-            @Body PostUpload post
     );
 
     @POST("person")
