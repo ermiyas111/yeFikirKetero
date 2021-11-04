@@ -68,6 +68,8 @@ public class LauncherActivity extends AppCompatActivity {
 
     private final int oneRoundLoadItems = 6;
     int maxRoundNumber = 3;
+    private int limit = 10;
+    private int skip = 0;
 
     //String[] s1 = new String[9];
     //String[] s2 = new String[9];
@@ -283,10 +285,14 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     private void fetchFromRetrofit(){
-        Call<PostWrapper> call = api.getPosts();
+        Call<PostWrapper> call = api.getPosts(limit, skip);
         call.enqueue(new Callback<PostWrapper>() {
             @Override
             public void onResponse(Call<PostWrapper> call, Response<PostWrapper> response) {
+                if(skip != 0){
+                    name.remove(name.size() - 1);
+                    postsAdapter.notifyItemRemoved(name.size());
+                }
                 progressIndicator.setVisibility(GONE);
                 myFab.setVisibility(VISIBLE);
 
@@ -324,15 +330,21 @@ public class LauncherActivity extends AppCompatActivity {
                 postsAdapter.notifyDataSetChanged();
                 postsAdapter.setLoaded();
 
-                if(i >= 10){
+                if(skip == 0){
                     loadMoreListen();
-                } else {
-//                Toast.makeText(context, "Loading data completed", Toast.LENGTH_SHORT).show();
                 }
+                skip = skip + limit;
+//                if(name.size() < postWrapper.getTotal() ){
+//                    loadMoreListen();
+//                }
             }
 
             @Override
             public void onFailure(Call<PostWrapper> call, Throwable t) {
+                if(skip != 0) {
+                    name.remove(name.size() - 1);
+                    postsAdapter.notifyItemRemoved(name.size());
+                }
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
                 progressIndicator.setVisibility(GONE);
                 MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(context)
@@ -370,16 +382,9 @@ public class LauncherActivity extends AppCompatActivity {
             public void onLoadMore() {
                 name.add(null);
                 postsAdapter.notifyItemInserted(name.size() - 1);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        name.remove(name.size() - 1);
-                        postsAdapter.notifyItemRemoved(name.size());
 
-                        //Generating more data
-                        fetchFromRetrofit();
-                    }
-                }, 5000);
+                //Generating more data
+                fetchFromRetrofit();
 
             }
         });

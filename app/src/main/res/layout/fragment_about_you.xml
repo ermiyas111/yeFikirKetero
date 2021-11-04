@@ -175,7 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
-                    android:maxLength="50"
+                    android:maxLength="1000"
                     android:lines="5"
                     android:maxLines="10"
                     android:gravity="start" />

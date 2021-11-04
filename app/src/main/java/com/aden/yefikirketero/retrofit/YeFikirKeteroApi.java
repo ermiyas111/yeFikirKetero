@@ -35,7 +35,10 @@ public interface YeFikirKeteroApi {
 
     @Headers("Content-Type: application/json")
     @GET("posts")
-    Call<PostWrapper> getPosts();
+    Call<PostWrapper> getPosts(
+            @Query("limit") int limit,
+            @Query("skip") int skip
+    );
 
     @POST("users")
     Call<Post> uploadPost(

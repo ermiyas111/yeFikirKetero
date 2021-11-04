@@ -43,7 +43,7 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     List<String> dateJob = new ArrayList<>();
 
     private boolean isLoading;
-    private int visibleThreshold = 5;
+    private int visibleThreshold = 3;
     private int lastVisibleItem, totalItemCount;
 
     private OnLoadMoreListener onLoadMoreListener;
