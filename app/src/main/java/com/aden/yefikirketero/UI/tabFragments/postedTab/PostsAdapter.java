@@ -121,9 +121,6 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if(gender.get(position) != null && !gender.get(position).equals("")){
                 myInfo = myInfo + "\n" + ct.getResources().getString(R.string.gender_label)+ " " + gender.get(position);
             }
-            if(phone.get(position) != null && !phone.get(position).equals("")){
-                myInfo = myInfo + "\n" + ct.getResources().getString(R.string.phone_label)+ " " + phone.get(position);
-            }
             if(address.get(position) != null && !address.get(position).equals("")){
                 myInfo = myInfo + "\n" + ct.getResources().getString(R.string.address_label) + " " + address.get(position);
             }
