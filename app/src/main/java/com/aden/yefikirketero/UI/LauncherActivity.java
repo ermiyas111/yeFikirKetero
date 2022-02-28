@@ -67,28 +67,28 @@ public class LauncherActivity extends AppCompatActivity {
     EditText searchEditText;
 
     private final int oneRoundLoadItems = 6;
-    int maxRoundNumber = 3;
-    private int limit = 10;
-    private int skip = 0;
+    int maxRoundNumber;
+    private int limit;
+    private int skip;
 
     //String[] s1 = new String[9];
     //String[] s2 = new String[9];
     //use array list instead of String[]
-    List<String> userId = new ArrayList<>();
-    List<String> name = new ArrayList<>();
-    List<String> age = new ArrayList<>();
-    List<String> gender = new ArrayList<>();
-    List<String> phone = new ArrayList<>();
-    List<String> address = new ArrayList<>();
-    List<String> religion = new ArrayList<>();
-    List<String> height = new ArrayList<>();
-    List<String> job = new ArrayList<>();
-    List<String> bio = new ArrayList<>();
-    List<String> dateMinAge = new ArrayList<>();
-    List<String> dateMaxAge = new ArrayList<>();
-    List<String> dateReligion = new ArrayList<>();
-    List<String> dateHeight = new ArrayList<>();
-    List<String> dateJob = new ArrayList<>();
+    List<String> userId;
+    List<String> name;
+    List<String> age;
+    List<String> gender;
+    List<String> phone;
+    List<String> address;
+    List<String> religion;
+    List<String> height;
+    List<String> job;
+    List<String> bio;
+    List<String> dateMinAge;
+    List<String> dateMaxAge;
+    List<String> dateReligion;
+    List<String> dateHeight;
+    List<String> dateJob;
 
     /*TabLayout tabLayout;
     ViewPager viewPager;
@@ -131,17 +131,7 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_posted_profiles_tab);
 
-        progressIndicator = findViewById(R.id.progressIndicator);
-        recyclerView = findViewById(R.id.recycler_view_posted_profiles);
-        topAppBar = findViewById(R.id.top_app_bar);
 
-        //to make on create options menu called
-        setSupportActionBar(topAppBar);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        postsAdapter = new PostsAdapter(recyclerView, context, userId, name, age, gender, phone, address, religion, height, job, bio, dateMinAge, dateMaxAge, dateReligion, dateHeight, dateJob);
-        recyclerView.setAdapter(postsAdapter);
 
         myFab = findViewById(R.id.fab);
 
@@ -156,6 +146,45 @@ public class LauncherActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        maxRoundNumber = 3;
+        limit = 10;
+        skip = 0;
+
+        userId = new ArrayList<>();
+        name = new ArrayList<>();
+        age = new ArrayList<>();
+        gender = new ArrayList<>();
+        phone = new ArrayList<>();
+        address = new ArrayList<>();
+        religion = new ArrayList<>();
+        height = new ArrayList<>();
+        job = new ArrayList<>();
+        bio = new ArrayList<>();
+        dateMinAge = new ArrayList<>();
+        dateMaxAge = new ArrayList<>();
+        dateReligion = new ArrayList<>();
+        dateHeight = new ArrayList<>();
+        dateJob = new ArrayList<>();
+
+        progressIndicator = findViewById(R.id.progressIndicator);
+        recyclerView = findViewById(R.id.recycler_view_posted_profiles);
+        topAppBar = findViewById(R.id.top_app_bar);
+
+        //to make on create options menu called
+        setSupportActionBar(topAppBar);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        postsAdapter = new PostsAdapter(recyclerView, context, userId, name, age, gender, phone, address, religion, height, job, bio, dateMinAge, dateMaxAge, dateReligion, dateHeight, dateJob);
+        recyclerView.setAdapter(postsAdapter);
 
         //retrofit method call
         Retrofit retrofit = new Retrofit.Builder()
