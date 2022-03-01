@@ -359,13 +359,16 @@ public class LauncherActivity extends AppCompatActivity {
                 postsAdapter.notifyDataSetChanged();
                 postsAdapter.setLoaded();
 
-                if(skip == 0){
-                    loadMoreListen();
-                }
+
                 skip = skip + limit;
 //                if(name.size() < postWrapper.getTotal() ){
 //                    loadMoreListen();
 //                }
+                if(skip < postWrapper.getTotal()){
+                    loadMoreListen();
+                } else{
+                    resetLoadMore();
+                }
             }
 
             @Override
@@ -417,6 +420,14 @@ public class LauncherActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void resetLoadMore(){
+
+        //built in methods
+        //postsAdapter.notifyDataSetChanged();
+
+        postsAdapter.resetOnLoadMoreListener();
     }
 
     public void updateList(List<String> list1){

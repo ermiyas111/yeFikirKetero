@@ -185,6 +185,10 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.onLoadMoreListener = mOnLoadMoreListener;
     }
 
+    public void resetOnLoadMoreListener() {
+        this.onLoadMoreListener = null;
+    }
+
     public void setLoaded() {
         isLoading = false;
     }
